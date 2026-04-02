@@ -1,0 +1,1392 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction to Python 2.7 Through Examples">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/en-python2.7-mars-2012/layered-architecture-and-interface-based-programming.html">
+      
+      
+        <link rel="prev" href="exceptions.html">
+      
+      
+        <link rel="next" href="application-exercise---tax-calculation-with-a-layered-architecture-.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>7. Layered architecture and interface-based programming - Introduction to Python 2.7 Through Examples</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introduction to Python 2.7 Through Examples";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-layered-architecture-and-interface-based-programming" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-header__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introduction to Python 2.7 Through Examples
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              7. Layered architecture and interface-based programming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-nav__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introduction to Python 2.7 Through Examples
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="foreword.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Foreword
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installing-a-python-interpreter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installing a Python interpreter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="the-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. The Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---tax-calculation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Application Exercise – [Tax Calculation]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classes-and-objects.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classes and Objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exceptions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Layered architecture and interface-based programming
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="layered-architecture-and-interface-based-programming.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Layered architecture and interface-based programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-the-applications-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. The application&#x27;s entities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-the-dao-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. The [dao] layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-the-business-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. The [business] layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-the-console-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5. The [console] layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---tax-calculation-with-a-layered-architecture-.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Application Exercise – [Tax Calculation] with a layered architecture 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-the-mysql-dbms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Using the MySQL DBMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Exercise [Tax Calculation] with MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python-network-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Python network functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="web-services-in-python.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Web services in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-a-web-service.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Exercise [Tax Calculation] with a Web Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processing-xml-documents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Processing XML Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-xml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Exercise [Tax Calculation] with XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><a id="refheading408941886864318"></a></p>
+<h1 id="7-layered-architecture-and-interface-based-programming">7. <span style="color: #365f91"><strong>Layered architecture and interface-based programming</strong></span></h1>
+<p><a id="refheading408961886864318"></a></p>
+<h2 id="71-introduction">7.1. <span style="color: #4f81bd"><strong>Introduction</strong></span></h2>
+<p>We propose to write an application that displays the grades of middle school students. This application will have a multi-layer architecture:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000569000001177786E7B8.png" style="display:inline-block; margin:4px;width:17.997cm;height:3.625cm;" class="odt-zoomable" data-zoom-src="images/1000000000000569000001177786E7B8.png" /></td></tr></table>
+
+<ul>
+<li>The [<strong>presentation</strong>] layer is the layer that interacts with the application user.</li>
+<li>The [<strong>business</strong> logic] layer implements the application&#x27;s business rules, such as calculating a salary or an invoice. This layer uses data from the user via the [presentation] layer and from the DBMS via the [DAO] layer.</li>
+<li>The [<strong>DAO</strong>] (Data Access Objects) layer manages access to data in the DBMS.</li>
+</ul>
+<p>We will illustrate this architecture with a simple console application:</p>
+<ul>
+<li>there will be no database,</li>
+<li>the [DAO] layer will manage the <em>Student</em>, <em>Class</em>, <em>Subject</em>, and <em>Grade</em> entities to handle student grades,</li>
+<li>the [business logic] layer will calculate metrics based on a specific student’s grades,</li>
+<li>the [presentation] layer will be a console application that displays the results calculated by the [business] layer.</li>
+</ul>
+<p>The Visual Studio project for the application is as follows:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000B600000080FC6A7E5F.png" style="display:inline-block; margin:4px;width:3.371cm;height:2.371cm;" class="odt-zoomable" data-zoom-src="images/10000000000000B600000080FC6A7E5F.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+
+<p><a id="refheading408981886864318"></a></p>
+<h2 id="72-the-applications-entities">7.2. <span style="color: #4f81bd"><strong>The application&#x27;s entities</strong></span></h2>
+<p>Entities are objects. Here, we will have four classes for each of the entities: <em>Student</em>, <em>Class</em>, <em>Subject</em>, and <em>Grade</em>.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000010F000000C28EB4D827.png" style="display:inline-block; margin:4px;width:3.586cm;height:2.566cm;" class="odt-zoomable" data-zoom-src="images/100000000000010F000000C28EB4D827.png" /></td></tr></table>
+
+<p>The [entities.py] file contains four classes.</p>
+<p>The [Class] class represents a middle school class:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Class<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>id<span style="color:#008080">, </span>name<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the parameters</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>id<span style="color:#008080"> = </span>id</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>name = name</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># toString</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Class[{0},{1}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>id<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>name<span style="color:#008080">)</span></span>
+</code></pre></div>
+
+<ul>
+<li>lines 3–6: a class is defined by an <em>ID</em> (line 5) and a <em>name</em> (line 6);</li>
+<li>lines 9-10: the method for displaying the class.</li>
+</ul>
+<p>The [Subject] class is as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Subject<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>id<span style="color:#008080">, </span>name<span style="color:#008080">, </span>coefficient<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the parameters</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>id<span style="color:#008080"> = </span>id</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>name = name</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>coefficient<span style="color:#008080"> = </span>coefficient</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># toString</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Subject[{0},{1},{2}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>id<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>name<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>coefficient<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>lines 3-7: a subject is defined by its ID (line 5), its name (line 6), and its weight (line 7);</li>
+<li>lines 10-11: the method for displaying the subject.</li>
+</ul>
+<p>The [Student] class is as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Student<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>id<span style="color:#008080">, </span>last_name<span style="color:#008080">, </span>first_name<span style="color:#008080">, </span>class<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the parameters</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>id<span style="color:#008080"> = </span>id</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>last_name = last_name</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>first_name = first_name</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>class<span style="color:#008080"> = class</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># toString</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Student[{0},{1},{2},{3}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>id<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>first_name<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>last_name<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>class<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>lines 3–8: a student is characterized by their ID (line 5), last name (line 6), first name (line 7), and class (line 8). This last parameter is a reference to a [Class] object;</li>
+<li>lines 11-12: the method for displaying the student.</li>
+</ul>
+<p>The [Grade] class is as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Note<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>id<span style="color:#008080">, </span>value<span style="color:#008080">, </span>student<span style="color:#008080">, </span>subject<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the parameters</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>id<span style="color:#008080"> = </span>id</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>value<span style="color:#008080"> = value</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>student = student</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>subject<span style="color:#008080"> = </span>subject</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># toString</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Grade[{0},{1},{2},{3}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>id<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>value<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>student<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>subject<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>lines 3-8: a [Grade] object is characterized by its ID (line 5), the grade value (line 6), a reference to the student who received this grade (line 7), and a reference to the subject for which the grade was given (line 8);</li>
+<li>lines 11-12: the method for displaying the [Note] object.
+<a id="refheading409001886864318"></a></li>
+</ul>
+<h2 id="73-the-dao-layer">7.3. <span style="color: #4f81bd"><strong>The [dao] layer</strong></span></h2>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000591000001203279ADFA.png" style="display:inline-block; margin:4px;width:17.997cm;height:3.637cm;" class="odt-zoomable" data-zoom-src="images/1000000000000591000001203279ADFA.png" /></td></tr></table>
+
+<p>The [dao] layer will provide the following interface to the [business] layer:</p>
+<ul>
+<li><em>getClasses</em> returns the list of middle school classes;</li>
+<li><em>getMatieres</em> returns the list of subjects;</li>
+<li><em>getStudents</em> returns the list of students;</li>
+<li><em>getGrades</em> returns a list of grades.</li>
+</ul>
+<p>The [business] layer will use only these methods. It does not need to know how they are implemented. This data can therefore come from various sources (hard-coded values, a database, text files, etc.) without affecting the [business] layer. This is known as <strong>interface-based programming</strong>.</p>
+<p>The [Dao] class implements this interface as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># import the entities module</span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>entities <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Dao<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># instantiate the classes</span></span>
+<span class="odt-code-line">        <span style="color:#008080">class1 = </span>Class<span style="color:#008080">(</span>1<span style="color:#008080">, </span><span style="color:#a31515">&quot;class1&quot;</span><span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#008080">class2 = </span>Class<span style="color:#008080">(</span>2<span style="color:#008080">, </span><span style="color:#a31515">&quot;class2&quot;</span><span style="color:#008080">)</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span><span style="color:#008080">classes = [</span>class1<span style="color:#008080">, </span>class2<span style="color:#008080">]</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># subjects</span></span>
+<span class="odt-code-line">        <span style="color:#008080">subject1 = </span>Subject<span style="color:#008080">(</span>1<span style="color:#008080">, </span><span style="color:#a31515">&quot;subject1&quot;</span><span style="color:#008080">,</span> 1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        subject2 = Subject<span style="color:#008080">(</span>2<span style="color:#008080">, </span><span style="color:#a31515">&quot;subject2&quot;</span><span style="color:#008080">,</span> 2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span><span style="color:#008080">subjects = [</span>subject1<span style="color:#008080">, </span>subject2<span style="color:#008080">]</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># students</span></span>
+<span class="odt-code-line">        <span style="color:#008080">student11 = </span>Student<span style="color:#008080">(</span>11<span style="color:#008080">, </span><span style="color:#a31515">&quot;last_name1&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;first_name1&quot;</span><span style="color:#008080">, </span>class1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#008080">student21 = </span>Student<span style="color:#008080">(</span>21<span style="color:#008080">, </span><span style="color:#a31515">&quot;last_name2&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;first_name2&quot;</span><span style="color:#008080">, </span>class1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        student32 = Student<span style="color:#008080">(</span>32<span style="color:#008080">, </span><span style="color:#a31515">&quot;last_name3&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;first_name3&quot;</span><span style="color:#008080">, </span>class2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        student42 = Student<span style="color:#008080">(</span>42<span style="color:#008080">, </span><span style="color:#a31515">&quot;last_name4&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;first_name4&quot;</span><span style="color:#008080">, </span>class2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span><span style="color:#008080">students = [</span>student11<span style="color:#008080">, </span>student21<span style="color:#008080">, </span>student32<span style="color:#008080">, </span>student42<span style="color:#008080">]</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># grades</span></span>
+<span class="odt-code-line">        grade1<span style="color:#008080"> = </span>Grade<span style="color:#008080">(</span>1<span style="color:#008080">,</span> 10<span style="color:#008080">, </span>student11<span style="color:#008080">, </span>subject1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade2<span style="color:#008080"> = </span>Grade<span style="color:#008080">(</span>2<span style="color:#008080">,</span> 12<span style="color:#008080">, </span>student21<span style="color:#008080">, </span>subject1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade3<span style="color:#008080"> = </span>Grade<span style="color:#008080">(</span>3<span style="color:#008080">,</span> 14<span style="color:#008080">, </span>student32<span style="color:#008080">, </span>subject1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade4<span style="color:#008080"> = </span>Grade<span style="color:#008080">(</span>4<span style="color:#008080">,</span> 16<span style="color:#008080">, </span>student42<span style="color:#008080">, </span>subject1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade5=Grade<span style="color:#008080">(</span>5<span style="color:#008080">,</span>6<span style="color:#008080">,</span>student11<span style="color:#008080">,</span>subject2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade6=Grade<span style="color:#008080">(</span>6<span style="color:#008080">,</span>8<span style="color:#008080">,</span>student21<span style="color:#008080">,</span>subject2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade7=Grade<span style="color:#008080">(</span>7<span style="color:#008080">,</span>10<span style="color:#008080">,</span>student32<span style="color:#008080">,</span>subject2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        grade8<span style="color:#008080"> = </span>Grade<span style="color:#008080">(</span>8<span style="color:#008080">,</span> 12<span style="color:#008080">, </span>student42<span style="color:#008080">, </span>subject2<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span><span style="color:#008080">grades = [</span>grade1<span style="color:#008080">, </span>grade2<span style="color:#008080">, </span>grade3<span style="color:#008080">, </span>grade4<span style="color:#008080">, </span>grade5<span style="color:#008080">, </span>grade6<span style="color:#008080">, </span>grade7<span style="color:#008080">, </span>grade8<span style="color:#008080">]</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000">#-----------</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># interface</span></span>
+<span class="odt-code-line">    <span style="color:#008000">#-----------</span></span>
+<span class="odt-code-line">    </span>
+<span class="odt-code-line">    <span style="color:#008000"># list of classes</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getClasses<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>classes</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># list of subjects</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getSubjects<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>subjects</span>
+<span class="odt-code-line">    </span>
+<span class="odt-code-line">    <span style="color:#008000"># list of students</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getStudents<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>students</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># list of grades</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getGrades<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>grades</span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>line 4: we import the module containing the entities handled by the [DAO] layer;</li>
+<li>line 8: the constructor has no parameters. It hard-codes four lists:<ul>
+<li>lines 10–12: the list of classes;</li>
+<li>lines 14–16: the list of subjects;</li>
+<li>lines 18–22: the list of students;</li>
+<li>lines 24–32: the list of grades.</li>
+</ul>
+</li>
+<li>lines 39–52: the four methods of the [dao] layer interface simply return a reference to the four lists constructed by the constructor.</li>
+</ul>
+<p>A test program might look like this:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># import the entities module and the [dao] layer</span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>entities <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>dao <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># instantiate the [dao] layer</span>
+<span class="odt-code-line"><span style="color:#008080">dao = </span>Dao<span style="color:#008080">()</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># list of classes</span>
+<span class="odt-code-line"><span style="color:#0000ff">for </span>class <span style="color:#0000ff">in </span>dao<span style="color:#0000ff">.</span>getClasses<span style="color:#008080">():</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">print(</span>class)</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># list of subjects</span>
+<span class="odt-code-line"><span style="color:#0000ff">for </span>subject <span style="color:#0000ff">in </span>dao<span style="color:#0000ff">.</span>getSubjects<span style="color:#008080">():</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">print </span>subject</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># list of classes</span>
+<span class="odt-code-line"><span style="color:#0000ff">for </span>student <span style="color:#0000ff">in </span>dao<span style="color:#0000ff">.</span>getStudents<span style="color:#008080">():</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">print </span>student</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># list of classes</span>
+<span class="odt-code-line"><span style="color:#0000ff">for </span>grade <span style="color:#0000ff">in </span>dao<span style="color:#0000ff">.</span>getGrades<span style="color:#008080">():</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">print </span>grade</span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<p>The comments speak for themselves. Lines 11–24 use the [dao] layer interface. There are no assumptions here about the actual implementation of the layer. On line 8, we instantiate the [dao] layer. Here we make assumptions: class name and constructor type. There are solutions that allow us to avoid this dependency.</p>
+<p>The results of running this script are as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Class[1,class1]
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>Class[2,class2]
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>Subject[1,subject1,1]
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>Subject[2,subject2,2]
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>Student[11,first_name1,last_name1,Class[1,class1]]
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>Student[21,firstName2,lastName2,Class[1,class1]]
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>Student[32,firstName3,lastName3,Class[2,class2]]
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>Student[42,firstName4,lastName4,Class[2,class2]]
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>Grade[1,10,Student[11,firstName1,lastName1,Class[1,class1]],Subject[1,subject1,1]]
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>Grade[2,12,Student[21,firstName2,lastName2,Class[1,class1]],Subject[1,subject1,1]]
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>Grade[3,14,Student[32,first_name3,last_name3,Class[2,class2]],Subject[1,subject1,1]]
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>Grade[4,16,Student[42,firstName4,lastName4,Class[2,class2]],Subject[1,subject1,1]]
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>Grade[5,6,Student[11,firstName1,lastName1,Class[1,class1]],Subject[2,subject2,2]]
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>Grade[6,8,Student[21,firstName2,lastName2,Class[1,class1]],Subject[2,subject2,2]]
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>Grade[7,10,Student[32,firstName3,lastName3,Class[2,class2]],Subject[2,subject2,2]]
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>Grade[8,12,Student[42,firstName4,lastName4,Class[2,class2]],Subject[2,subject2,2]]
+</code></pre></div></td></tr></table></div>
+<p><a id="refheading409021886864318"></a></p>
+<h2 id="74-the-business-layer">7.4. <span style="color: #4f81bd"><strong>The [business] layer</strong></span></h2>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005A200000117ADD7AFF9.png" style="display:inline-block; margin:4px;width:17.997cm;height:3.482cm;" class="odt-zoomable" data-zoom-src="images/10000000000005A200000117ADD7AFF9.png" /></td></tr></table>
+
+<p>The [business] layer implements the following interface:</p>
+<ul>
+<li><em>getClasses</em> returns the list of middle school classes;</li>
+<li><em>getMatieres</em> returns the list of subjects;</li>
+<li><em>getStudents</em> returns the list of students;</li>
+<li><em>getGrades</em> returns a list of grades;</li>
+<li><em>getStatsForStudent</em> returns the grades for student <em>idStudent</em> along with information about them: <em>weighted average</em>, <em>lowest grade</em>, <em>highest grade</em>. </li>
+</ul>
+<p>The [presentation] layer will use only these methods. It does not need to know how they are implemented.</p>
+<p>The <em>getStatsForStudent</em> method returns an object of type [StatsForStudent] as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>StatsForStudent<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>student<span style="color:#008080">, </span>grades<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the parameters</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>student = student</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>grades<span style="color:#008080"> = </span>grades</span>
+<span class="odt-code-line">        <span style="color:#008000"># stop if there are no grades</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if </span>len<span style="color:#008080">(</span>grades<span style="color:#008080">) </span>== 0<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">return</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># calculate the weighted sum</span></span>
+<span class="odt-code-line">        <span style="color:#008080">weightedSum =</span> 0</span>
+<span class="odt-code-line">        weightedSum = 0</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>max=-1</span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>min=21</span>
+<span class="odt-code-line">        <span style="color:#0000ff">for </span>note <span style="color:#0000ff">in </span>notes<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            value<span style="color:#008080"> = </span>note<span style="color:#0000ff">.</span>value</span>
+<span class="odt-code-line">            <span style="color:#008080">coeff = </span>grade<span style="color:#0000ff">.</span>subject<span style="color:#0000ff">.</span>coefficient</span>
+<span class="odt-code-line">            <span style="color:#008080">coeffSum += </span>coeff</span>
+<span class="odt-code-line">            <span style="color:#008080">weightedSum += </span>value <span style="color:#008080">* </span>coeff</span>
+<span class="odt-code-line">            <span style="color:#0000ff">if </span>value <span style="color:#008080">&lt; </span>self<span style="color:#0000ff">.</span>min<span style="color:#008080">:</span></span>
+<span class="odt-code-line">                self<span style="color:#0000ff">.</span><span style="color:#008080">min = </span>value</span>
+<span class="odt-code-line">            <span style="color:#0000ff">if </span>value <span style="color:#008080">&gt; </span>self<span style="color:#0000ff">.</span>max<span style="color:#008080">:</span></span>
+<span class="odt-code-line">                self<span style="color:#0000ff">.</span>max <span style="color:#008080">= </span>value</span>
+<span class="odt-code-line">        <span style="color:#008000"># Calculate the student&#x27;s average</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>weightedAverage<span style="color:#008080"> = float(</span>weightedSum<span style="color:#008080">) / </span>coefficientSum</span>
+<span class="odt-code-line">        </span>
+<span class="odt-code-line">    <span style="color:#008000"># toString</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># case of a student with no grades</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if </span>len<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>grades<span style="color:#008080">) </span>== 0<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Student={0}, grades=[]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>student<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># case of a student with grades</span></span>
+<span class="odt-code-line">        <span style="color:#008080">str=</span><span style="color:#a31515">&quot;&quot;</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">for </span>grade <span style="color:#0000ff">in </span>self<span style="color:#0000ff">.</span>grades<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#008080">str+=</span><span style="color:#a31515">&quot;{0} &quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>note<span style="color:#0000ff">.</span>value<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#a31515">&quot;Student={0}, grades=[{1}], max={2}, min={3}, average={4}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>student<span style="color:#008080">, </span>str<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>max<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>min<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>weightedAverage<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>Line 3: The constructor takes two parameters: <ul>
+<li>a reference to the student of type [Student] for whom metrics are calculated;</li>
+<li>a reference to their grades, a list of [Grade] objects.</li>
+</ul>
+</li>
+<li>lines 8-9: if the list of grades is empty, we stop here.</li>
+<li>Otherwise, lines 11–25: the following metrics are calculated:<ul>
+<li><em>self.weightedAverage</em>: the student&#x27;s average weighted by the subject coefficients;</li>
+<li><em>self.min</em>: the student&#x27;s lowest grade;</li>
+<li><em>self.max</em>: the student&#x27;s highest grade.</li>
+</ul>
+</li>
+<li>line 28: the method for displaying the class in the format specified in line 36.</li>
+</ul>
+<p>A test script for this class could be as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># import modules from entities, the [dao] layer, and the [business] layer</span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>entities <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>dao <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>business_logic <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># a class</span>
+<span class="odt-code-line"><span style="color:#008080">class1 = </span>Class<span style="color:#008080">(</span>1<span style="color:#008080">, </span><span style="color:#a31515">&quot;6th Grade A&quot;</span><span style="color:#008080">)</span></span>
+<span class="odt-code-line"># a student in this class</span>
+<span class="odt-code-line"><span style="color:#008080">paul_durand = </span>Student<span style="color:#008080">(</span>1<span style="color:#008080">, </span><span style="color:#a31515">&quot;durand&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;paul&quot;</span><span style="color:#008080">, </span>class1<span style="color:#008080">)</span></span>
+<span class="odt-code-line"># three subjects</span>
+<span class="odt-code-line">maths <span style="color:#008080">= </span>Subject<span style="color:#008080">(</span>1<span style="color:#008080">, </span><span style="color:#a31515">&quot;maths&quot;</span><span style="color:#008080">,</span> 1<span style="color:#008080">)</span></span>
+<span class="odt-code-line">francais = Subject<span style="color:#008080">(</span>2<span style="color:#008080">, </span><span style="color:#a31515">&quot;French&quot;</span><span style="color:#008080">,</span> 2<span style="color:#008080">)</span></span>
+<span class="odt-code-line"><span style="color:#008080">english = </span>Subject<span style="color:#008080">(</span>3<span style="color:#008080">, </span><span style="color:#a31515">&quot;english&quot;</span><span style="color:#008080">,</span> 3<span style="color:#008080">)</span></span>
+<span class="odt-code-line"># grades in these subjects for the student</span>
+<span class="odt-code-line">math_grade=Grade<span style="color:#008080">(</span>1<span style="color:#008080">,</span>10<span style="color:#008080">,</span>paul_durand<span style="color:#008080">,</span>maths<span style="color:#008080">)</span></span>
+<span class="odt-code-line">french_grade=Grade<span style="color:#008080">(</span>2<span style="color:#008080">,</span>12<span style="color:#008080">,</span>paul_durand<span style="color:#008080">,</span>french<span style="color:#008080">)</span></span>
+<span class="odt-code-line">english_grade=Grade<span style="color:#008080">(</span>3<span style="color:#008080">,</span>14<span style="color:#008080">,</span>paul_durand<span style="color:#008080">,</span>english<span style="color:#008080">)</span></span>
+<span class="odt-code-line"># display the indicators</span>
+<span class="odt-code-line"><span style="color:#0000ff">print </span>StatsForStudent<span style="color:#008080">(</span>paul_durand<span style="color:#008080">,[</span>math_score<span style="color:#008080">, </span>french_score<span style="color:#008080">, </span>english_score<span style="color:#008080">])</span></span>
+</code></pre></div>
+
+<p>The screen output is as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Student = Student[1, paul, durand, Class[1, 6th Grade A]], grades = [10 12 14], max = 14, min = 10, average = 12.6666666667
+</code></pre></div>
+<p>Let’s return to our layered architecture:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005A1000000FBFAA8B3C8.png" style="display:inline-block; margin:4px;width:17.997cm;height:3.134cm;" class="odt-zoomable" data-zoom-src="images/10000000000005A1000000FBFAA8B3C8.png" /></td></tr></table>
+
+<p>The [Business] class implements the [business] layer as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span style="color:#0000ff">class </span>Business<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>dao<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># store the reference to the [dao] layer</span></span>
+<span class="odt-code-line">        self<span style="color:#0000ff">.</span>dao <span style="color:#008080">= </span>dao</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000">#-----------</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># interface</span></span>
+<span class="odt-code-line">    <span style="color:#008000">#-----------</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># indicators for grades</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getStatsForStudent<span style="color:#008080">(</span>self<span style="color:#008080">, </span>studentId<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># Stats for the student with ID studentID</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># search for student</span></span>
+<span class="odt-code-line">        found=False</span>
+<span class="odt-code-line">        i <span style="color:#008080">=</span> 0</span>
+<span class="odt-code-line">        <span style="color:#008080">students = </span>self<span style="color:#0000ff">.</span>getStudents<span style="color:#008080">()</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">while not </span>found <span style="color:#0000ff">and </span>i <span style="color:#008080">&lt; </span>len<span style="color:#008080">(</span>students<span style="color:#008080">):</span></span>
+<span class="odt-code-line">            found<span style="color:#008080"> = </span>students<span style="color:#008080">[</span>i<span style="color:#008080">]</span><span style="color:#0000ff">.</span>id == studentId</span>
+<span class="odt-code-line">            i+=1</span>
+<span class="odt-code-line">        <span style="color:#008000"># Did we find it?</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if not </span>found<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">raise </span>RuntimeError<span style="color:#008080">(</span><span style="color:#a31515">&quot;Student [{0}] does not exist&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>studentId<span style="color:#008080">))</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">            student <span style="color:#008080">= </span>students<span style="color:#008080">[</span>i-1<span style="color:#008080">]</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># list of all grades</span></span>
+<span class="odt-code-line">        <span style="color:#008080">grades = []</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">for </span>note <span style="color:#0000ff">in </span>self<span style="color:#0000ff">.</span>getNotes<span style="color:#008080">():</span></span>
+<span class="odt-code-line">            <span style="color:#008000"># Add all of the student&#x27;s notes to notes</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">if </span>note<span style="color:#0000ff">.</span>student<span style="color:#0000ff">.</span>id == studentId<span style="color:#008080">:</span></span>
+<span class="odt-code-line">                notes<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>note<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># return the result</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>StatsForStudent<span style="color:#008080">(</span>student<span style="color:#008080">, </span>notes<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># The list of classes</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getClasses<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getClasses<span style="color:#008080">()</span></span>
+<span class="odt-code-line">    </span>
+<span class="odt-code-line">    <span style="color:#008000"># the list of subjects</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getSubjects<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getSubjects<span style="color:#008080">()</span></span>
+<span class="odt-code-line">    </span>
+<span class="odt-code-line">    <span style="color:#008000"># the list of students</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getStudents<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getStudents<span style="color:#008080">()</span></span>
+<span class="odt-code-line">    </span>
+<span class="odt-code-line">    <span style="color:#008000"># the list of grades</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>getGrades<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">return </span>self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getGrades<span style="color:#008080">()</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>lines 3–5: the constructor receives a reference to the [dao] layer. The [business] layer must have this reference. Here, we provide it via its constructor. Other solutions are possible. In a horizontally represented layered architecture, each layer must have a reference to the layer to its right;</li>
+<li>lines 36-49: the methods <em>getClasses</em>, <em>getSubjects</em>, <em>getStudents</em>, and <em>getGrades</em> simply delegate the call to the methods of the same names in the [dao] layer;</li>
+<li>line 12: the <em>getStatsForStudent</em> method receives as a parameter the student ID for whom statistics are to be returned.</li>
+<li>line 17: the student will be searched for in the list of all students;</li>
+<li>lines 18–20: the search loop;</li>
+<li>line 23: if the student is not found, an exception is thrown;</li>
+<li>otherwise, line 25: the found student is stored;</li>
+<li>lines 28–31: we search through all the middle school grades for those belonging to the stored student;</li>
+<li>once they are found, the requested <em>StatsForEleve</em> object can be constructed.</li>
+</ul>
+<p><a id="refheading409041886864318"></a></p>
+<h2 id="75-the-console-layer">7.5. <span style="color: #4f81bd"><strong>The [console] layer</strong></span></h2>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000059F000000FC9E7B0F1A.png" style="display:inline-block; margin:4px;width:17.997cm;height:3.152cm;" class="odt-zoomable" data-zoom-src="images/100000000000059F000000FC9E7B0F1A.png" /></td></tr></table>
+
+<p>The [console] layer is implemented by the following script:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"># -*- encoding=utf-8 -*-</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># Import the entities module, the [dao] module, and the [business] module</span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>entities <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>dao <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"><span style="color:#0000ff">from </span>business_logic <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># ----------- [console] layer</span>
+<span class="odt-code-line"># instantiate the [business] layer</span>
+<span class="odt-code-line">business<span style="color:#008080"> = </span>Business<span style="color:#008080">(</span>Dao<span style="color:#008080">())</span></span>
+<span class="odt-code-line"># request/response</span>
+<span class="odt-code-line">finished=False</span>
+<span class="odt-code-line"><span style="color:#0000ff">while not </span>finished<span style="color:#008080">:</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># question</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;Student number (&gt;=1 and * to stop): &quot;</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># answer</span></span>
+<span class="odt-code-line">    answer = raw_input<span style="color:#008080">()</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># done?</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">if </span>response<span style="color:#0000ff">.</span>strip<span style="color:#008080">() == </span><span style="color:#a31515">&quot;*&quot;</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">break</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># Is the input valid?</span></span>
+<span class="odt-code-line">    ok <span style="color:#008080">= </span>False</span>
+<span class="odt-code-line">    <span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">        studentId<span style="color:#008080"> = </span>int<span style="color:#008080">(</span>answer<span style="color:#008080">,</span> 10<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        ok = studentId <span style="color:#008080">&gt;=</span> 1</span>
+<span class="odt-code-line">    <span style="color:#0000ff">except</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">pass</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># Is the answer correct?</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">if not </span>ok<span style="color:#008080">:</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;Incorrect input. Please try again...&quot;</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">continue</span></span>
+<span class="odt-code-line">    <span style="color:#008000"># calculation</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span>job<span style="color:#0000ff">.</span>getStatsForStudent<span style="color:#008080">(</span>studentId<span style="color:#008080">)</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">except </span>RuntimeError<span style="color:#008080">, </span>error<span style="color:#008080">:</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;The following error occurred: {0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>error<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+</code></pre></div>
+
+<ul>
+<li>line 10: instantiation of both the [dao] and [business] layers. This is the only dependency our code has on the implementation of these layers;</li>
+<li>line 34: we use the interface of the [business] layer;</li>
+<li>Line 19: The <em>strip</em> method removes leading and trailing spaces from the string;</li>
+<li>line 20: <em>break</em> exits a loop;</li>
+<li>line 24: attempts to convert the entered string to a decimal integer;</li>
+<li>line 29: <em><code>ok</code></em> is true only if line 25 has been executed;</li>
+<li>line 31: <em>continue</em> allows the loop to restart from the middle;</li>
+<li>line 34: calculation of indicators;</li>
+<li>line 35: catches the <em>RuntimeError</em> exception that may originate from the [business] layer.</li>
+</ul>
+<p>Here is an example of execution:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>student number (&gt;=1 and * to stop):
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>xx
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>Incorrect input. Please try again...
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>Student number (&gt;=1 and * to stop):
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>-4
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>Incorrect entry. Please try again...
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>Student number (&gt;=1 and * to stop):
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>11
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>Student = Student[11, first_name1, last_name1, Class[1, class1]], grades = [10 6 ], max = 10, min = 6, avg
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>average=7.33333333333
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>Student ID (&gt;=1 and * to stop):
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>111
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>The following error occurred: Student [111] does not exist
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>student number (&gt;=1 and * to stop):
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>*
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://tahe.developpez.com" target="_blank">
+          https://tahe.developpez.com
+        </a>
+        <br>
+        This tutorial written by <strong>Serge Tahé</strong> is made available to the public under the terms of the
+<em>Creative Commons Attribution – Non-Commercial –
+ShareAlike 3.0 Unported</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

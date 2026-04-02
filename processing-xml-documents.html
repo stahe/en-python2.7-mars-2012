@@ -1,0 +1,993 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction to Python 2.7 Through Examples">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/en-python2.7-mars-2012/processing-xml-documents.html">
+      
+      
+        <link rel="prev" href="exercise-tax-calculation-with-a-web-service.html">
+      
+      
+        <link rel="next" href="exercise-tax-calculation-with-xml.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>14. Processing XML Documents - Introduction to Python 2.7 Through Examples</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introduction to Python 2.7 Through Examples";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14-processing-xml-documents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-header__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introduction to Python 2.7 Through Examples
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14. Processing XML Documents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-nav__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introduction to Python 2.7 Through Examples
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="foreword.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Foreword
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installing-a-python-interpreter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installing a Python interpreter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="the-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. The Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---tax-calculation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Application Exercise – [Tax Calculation]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classes-and-objects.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classes and Objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exceptions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="layered-architecture-and-interface-based-programming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Layered architecture and interface-based programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---tax-calculation-with-a-layered-architecture-.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Application Exercise – [Tax Calculation] with a layered architecture 
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-the-mysql-dbms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Using the MySQL DBMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Exercise [Tax Calculation] with MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python-network-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Python network functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="web-services-in-python.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Web services in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-a-web-service.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Exercise [Tax Calculation] with a Web Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="processing-xml-documents.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Processing XML Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-tax-calculation-with-xml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Exercise [Tax Calculation] with XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><a id="refheading383702423505"></a></p>
+<h1 id="14-processing-xml-documents">14. <span style="color: #365f91"><strong>Processing XML Documents</strong></span></h1>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000B80000010A04CFDFA0.png" style="display:inline-block; margin:4px;width:3.41cm;height:4.93cm;" class="odt-zoomable" data-zoom-src="images/10000000000000B80000010A04CFDFA0.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+
+<p>Consider the following XML document:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;tribe&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &lt;teacher&gt;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &lt;person gender=&quot;M&quot;&gt;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      &lt;last_name&gt;dupont&lt;/last_name&gt;
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>      &lt;first_name&gt;jean&lt;/first_name&gt;
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      &lt;age&gt;28&lt;/age&gt;
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>      This is a comment
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    &lt;/person&gt;
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    &lt;section&gt;27&lt;/section&gt;
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  &lt;/teacher&gt;
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  &lt;student&gt;
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    &lt;person gender=&quot;F&quot;&gt;
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      &lt;last name&gt;martin&lt;/last name&gt;
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      &lt;first_name&gt;Charline&lt;/first_name&gt;
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      &lt;age&gt;22&lt;/age&gt;
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    &lt;/person&gt;
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    &lt;education&gt;IAIE degree&lt;/education&gt;
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>  &lt;/student&gt;
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>&lt;/group&gt;
+</code></pre></div>
+<p>We analyze this document to produce the following console output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a> tribe
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  teacher
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   (person,(gender,M) )
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    last name
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>     [dupont]
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    /last name
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    first name
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>     [jean]
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    /first name
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    age
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>     [28]
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    /age
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>   /person
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>   section
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    [27]
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>   /section
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  /teacher
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  student
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>   (person,(gender,F) )
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    name
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>     [martin]
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    /last name
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    first name
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>     [Charline]
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    /first name
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    age
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>     [22]
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    /age
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>   /person
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>   education
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    [IAIE design]
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>   /education
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>  /student
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a> /tribe
+</code></pre></div>
+<p>We need to know how to recognize:</p>
+<ul>
+<li>a start tag such as <em>&lt;training&gt;;</em></li>
+<li>an end tag such as <em>&lt;/teacher&gt;;</em></li>
+<li>a start tag with attributes such as <em>&lt;person gender=&quot;F&quot;&gt;;</em></li>
+<li>the body of a tag, such as &quot;<em>martin&quot;</em> in <em>&lt;name&gt;martin&lt;/name&gt;.</em></li>
+</ul>
+<p>A program that parses XML code is called an XML <strong>parser</strong>. Two modules provide the functionality needed to parse XML code: <em>xml.sax</em> and <em>xml.sax.handler</em>.</p>
+<p>The [xml.sax] module provides us with an XML parser using the following statement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>xml_parser=xml.sax.make_parser()
+</code></pre></div>
+<p>This parser parses the XML text sequentially. It calls user-defined methods on events:</p>
+<ul>
+<li>the <em>startElement</em> method on a start tag;</li>
+<li>the <em>endElement</em> method on a closing tag;</li>
+<li>the <em>characters</em> method on the body of a tag.</li>
+</ul>
+<p>We need to tell the parser which class implements these methods:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>xml_parser.setContentHandler(XmlHandler())
+</code></pre></div>
+<p>We pass an instance of a class that implements the <em>startElement</em>, <em>endElement</em>, and <em>characters</em> methods to the parser’s <em>setContentHandler</em> method. The class used is a subclass of the <em>xml.sax.handler.ContentHandler</em> class. The preceding methods are called with parameters:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">startElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+</code></pre></div>
+<ul>
+<li><em>name</em> is the name of the start tag. <em>attributes</em> is the dictionary of the tag&#x27;s attributes. Thus, for the tag <em>&lt;person sex=&quot;M&quot;&gt;,</em> we will have <em>name=&quot;person&quot;</em> and <em>attributes={&#x27;sex&#x27;:&#x27;M&#x27;}</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">endElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</code></pre></div>
+<ul>
+<li><em>name</em> is the name of the end tag. Thus, for the <em>&lt;/student&gt;</em> tag, we will have <em>name=&#x27;student</em>&#x27;.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">characters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</code></pre></div>
+<ul>
+<li>data is the body of the tag. Thus, if the tag is</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&lt;name&gt;
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    dupont
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>&lt;/name&gt;
+</code></pre></div>
+<p>we will have <em>data=&#x27;\r\n       dupont\r\n       &#x27;</em>. Generally, we will remove the whitespace preceding and following the data.</p>
+<p>Now that this is explained, we can move on to the script for parsing an XML document:</p>
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
+<div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">The program (xml_sax_01)</div>
+
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
+
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"><span style="color:#0000ff">import </span>xml<span style="color:#0000ff">.</span>sax<span style="color:#008080">, </span>xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>handler<span style="color:#008080">, </span>re</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># XML handling class</span>
+<span class="odt-code-line"><span style="color:#0000ff">class </span>XmlHandler<span style="color:#008080">(</span>xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>handler<span style="color:#0000ff">.</span>ContentHandler<span style="color:#008080">):</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># function called when an opening tag is encountered</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>startElement<span style="color:#008080">(</span>self<span style="color:#008080">, </span>name<span style="color:#008080">, </span>attributes<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">global </span>depth</span>
+<span class="odt-code-line">        <span style="color:#008000"># a sequence of spaces (indentation)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot; &quot; </span><span style="color:#008080">* </span>depth<span style="color:#008080">,</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># attributes</span></span>
+<span class="odt-code-line">        <span style="color:#008080">specifications=</span><span style="color:#a31515">&quot;&quot;</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">for </span><span style="color:#008080">(</span>attrib<span style="color:#008080">, </span>value<span style="color:#008080">) </span><span style="color:#0000ff">in </span>attributes<span style="color:#0000ff">.</span>items<span style="color:#008080">():</span></span>
+<span class="odt-code-line">            <span style="color:#008080">details+=</span><span style="color:#a31515">&quot;(%s,%s) &quot; </span><span style="color:#008080">% (</span>attrib<span style="color:#008080">,</span>value<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># Display the tag name and any attributes</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if </span>details<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;(%s,%s)&quot; </span><span style="color:#008080">% (</span>name<span style="color:#008080">,</span>precisions<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">print </span>name</span>
+<span class="odt-code-line">        <span style="color:#008000"># one more level in the tree</span></span>
+<span class="odt-code-line">        depth+=1</span>
+<span class="odt-code-line">        <span style="color:#008000"># Is this a data tag?</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">global </span>dataTags<span style="color:#008080">, </span>dataTag</span>
+<span class="odt-code-line">        <span style="color:#0000ff">if </span>dataTags<span style="color:#0000ff">.</span>has_key<span style="color:#008080">(</span>name<span style="color:#0000ff">.</span>lower<span style="color:#008080">()):</span></span>
+<span class="odt-code-line">            dataTag=1</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># the function called when an end tag is encountered</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>endElement<span style="color:#008080">(</span>self<span style="color:#008080">, </span>name<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># end tag</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># indentation level</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">global </span>depth</span>
+<span class="odt-code-line">        depth <span style="color:#008080">-=</span> 1</span>
+<span class="odt-code-line">        <span style="color:#008000"># a sequence of spaces (indentation)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot; &quot; </span><span style="color:#008080">* </span>depth<span style="color:#008080">,</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># tag name</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;/%s&quot; </span><span style="color:#008080">% (</span>name<span style="color:#008080">)</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">    <span style="color:#008000"># the data display function</span></span>
+<span class="odt-code-line">    <span style="color:#0000ff">def </span>characters<span style="color:#008080">(</span>self<span style="color:#008080">, </span>data<span style="color:#008080">):</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># data</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">global </span>dataTag</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line">        <span style="color:#008000"># Is the current tag a data tag?</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if not </span>dataTag<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">return</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># indentation level</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">global </span>depth</span>
+<span class="odt-code-line">        <span style="color:#008000"># a sequence of spaces (indentation)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot; &quot; </span><span style="color:#008080">* </span>depth<span style="color:#008080">,</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># the data is displayed</span></span>
+<span class="odt-code-line">        <span style="color:#008080">match = </span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(.*)\s*$&quot;</span><span style="color:#008080">, </span>data<span style="color:#008080">)</span></span>
+<span class="odt-code-line">        <span style="color:#0000ff">if </span>match<span style="color:#008080">:</span></span>
+<span class="odt-code-line">            <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;[%s]&quot; </span><span style="color:#008080">% (</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">])</span></span>
+<span class="odt-code-line">        <span style="color:#008000"># end of data tag</span></span>
+<span class="odt-code-line">        dataTag=False</span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># ------------------------------------------- main  </span>
+<span class="odt-code-line"># the program</span>
+<span class="odt-code-line"># data</span>
+<span class="odt-code-line"><span style="color:#008080">file=</span><span style="color:#a31515">&quot;data.xml&quot;</span>      <span style="color:#008000"> # the XML file</span></span>
+<span class="odt-code-line">depth=0              <span style="color:#008000"> # indentation level = depth in the tree structure</span></span>
+<span class="odt-code-line"><span style="color:#008080">dataTags={</span><span style="color:#a31515">&quot;lastName&quot;</span><span style="color:#008080">:</span>1<span style="color:#008080">,</span><span style="color:#a31515">&quot;firstName&quot;</span><span style="color:#008080">:</span>1<span style="color:#008080">,</span><span style="color:#a31515">&quot;age&quot;</span><span style="color:#008080">:</span>1<span style="color:#008080">,</span><span style="color:#a31515">&quot;section&quot;</span><span style="color:#008080">:</span>1<span style="color:#008080">,</span><span style="color:#a31515">&quot;education&quot;</span><span style="color:#008080">:</span>1<span style="color:#008080">}</span></span>
+<span class="odt-code-line">dataTag=True    <span style="color:#008000"> # set to true, indicates that this is a data tag</span></span>
+<span class="odt-code-line"></span>
+<span class="odt-code-line"># create an XML parser object</span>
+<span class="odt-code-line"><span style="color:#008080">xml_parser = </span>xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>make_parser<span style="color:#008080">()</span></span>
+<span class="odt-code-line"># the tag handler</span>
+<span class="odt-code-line">xml_parser<span style="color:#0000ff">.</span>setContentHandler<span style="color:#008080">(</span>XmlHandler<span style="color:#008080">())</span></span>
+<span class="odt-code-line"># processing the XML file</span>
+<span class="odt-code-line">xml_parser<span style="color:#0000ff">.</span>parse<span style="color:#008080">(</span>file<span style="color:#008080">)</span></span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ul>
+<li>The script uses the function library from the <em>xml.sax</em> and <em>xml.sax.handler</em> modules (line 3);</li>
+<li>line 62: the parsed XML file;</li>
+<li>line 68: the XML parser;</li>
+<li>Line 70: The handler for events emitted by the parser will be an instance of the <em>XmlHandler</em> class<em>;</em></li>
+<li>line 72: the parsing of the XML document begins;</li>
+<li>line 6: the class implementing the <em>startElement</em>, <em>endElement</em>, and <em>characters</em> methods. It is derived from the <em>xml.sax.handler.ContentHandler</em> class, which implements methods used by the parser;</li>
+<li>line 9: the <em>startElement</em> method<em>;</em></li>
+<li>line 30: the <em>endElement</em> method<em>;</em></li>
+<li>line 41: the <em>characters</em> method<em>.</em></li>
+</ul>
+<p>The results are those presented at the beginning of this paragraph.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://tahe.developpez.com" target="_blank">
+          https://tahe.developpez.com
+        </a>
+        <br>
+        This tutorial written by <strong>Serge Tahé</strong> is made available to the public under the terms of the
+<em>Creative Commons Attribution – Non-Commercial –
+ShareAlike 3.0 Unported</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
