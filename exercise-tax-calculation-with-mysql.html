@@ -809,13 +809,13 @@
 
 
 
-<p><a id="exo-impots-mysql"></a>
-<a id="refheading383102423505"></a></p>
+<p><a id="refheading383102423505"></a>
+<a id="exo-impots-mysql"></a></p>
 <h1 id="10-exercise-tax-calculation-with-mysql">10. <span style="color: #365f91"><strong>Exercise [</strong><strong>Tax Calculation</strong><strong>] with MySQL</strong></span></h1>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000017A00000264ABA925B0.png" style="display:inline-block; margin:4px;width:5.001cm;height:8.096cm;" class="odt-zoomable" data-zoom-src="images/100000000000017A00000264ABA925B0.png" /></td></tr></table>
 
 <p><a id="refheading383122423505"></a></p>
-<h2 id="101-transferring-a-text-file-to-a-mysql-table">10.1. <span style="color: #4f81bd"><strong>Transferring a text file to a MySQL table</strong></span></h2>
+<h2 id="101-transferring-a-text-file-to-a-mysql-table">10.1. <span style="color: #4f81bd">Transferring a text file to a MySQL table</span></h2>
 <p>The following script will transfer data from the following text file:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>0:0.05:0.1:0.15:0.2:0.25:0.3:0.35:0.4:0.45:0.5:0.55:0.6:0.65
@@ -981,13 +981,13 @@
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000F60000016E62B20100.png" style="display:inline-block; margin:4px;width:4.56cm;height:6.784cm;" class="odt-zoomable" data-zoom-src="images/10000000000000F60000016E62B20100.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
 
 <p><a id="refheading383142423505"></a></p>
-<h2 id="102-the-tax-calculation-program">10.2. <span style="color: #4f81bd"><strong>The tax calculation program</strong></span></h2>
+<h2 id="102-the-tax-calculation-program">10.2. <span style="color: #4f81bd">The tax calculation program</span></h2>
 <p>Now that the data needed to calculate the tax is in a database, we can write the tax calculation script. We are again using a three-tier architecture:</p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004A2000000EC57FC3312.png" style="display:inline-block; margin:4px;width:15.69cm;height:3.122cm;" class="odt-zoomable" data-zoom-src="images/10000000000004A2000000EC57FC3312.png" /></td></tr></table>
 
 <p>The new [dao] layer will be connected to the MySQL DBMS and will be implemented by the [ImpotsMySQL] class. It will provide the [business] layer with the same interface as before, consisting of the single <em>getData</em> method that returns the tuple (<em>limits, coeffR, coeffN</em>). Thus, the [business] layer will remain unchanged from the previous version.</p>
 <p><a id="refheading378801855283005"></a></p>
-<h2 id="103-the-impotsmysql-class">10.3. <span style="color: #4f81bd"><strong>The [ImpotsMySQL] class</strong></span></h2>
+<h2 id="103-the-impotsmysql-class">10.3. <span style="color: #4f81bd">The [ImpotsMySQL] class</span></h2>
 <p>The [dao] layer is now implemented by the following [ImpotsMySQL] class (impots.py file):</p>
 <div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
 <span class="odt-code-line"><span style="color:#0000ff">class </span>ImpotsMySQL<span style="color:#008080">:</span></span>
@@ -1036,7 +1036,7 @@
 <li>the <em>getData</em> method of the [dao] layer interface.
 <a id="refheading378821855283005"></a></li>
 </ul>
-<h2 id="104-the-console-script">10.4. <span style="color: #4f81bd"><strong>The console script</strong></span></h2>
+<h2 id="104-the-console-script">10.4. <span style="color: #4f81bd">The console script</span></h2>
 <p>The console script code (impots_04) is as follows:</p>
 <div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
 <span class="odt-code-line"># -*- coding=utf-8 -*-</span>

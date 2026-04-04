@@ -830,7 +830,7 @@
 <p>We will assume that all implementations of the [dao] layer provide the <em>getData()</em> method, which returns a tuple of three elements (<em>limits, coeffR, coeffN</em>)—the three data arrays required to calculate the tax.  In other languages, this is called an interface. An interface defines methods (here, <em>getData</em>) that classes implementing this interface must have.</p>
 <p>The [business] layer will be implemented by a class whose constructor takes a reference to the [dao] layer as a parameter, ensuring communication between the two layers.</p>
 <p><a id="refheading93739200241464"></a></p>
-<h2 id="81-the-dao-layer">8.1. <span style="color: #4f81bd"><strong>The [DAO] layer</strong></span></h2>
+<h2 id="81-the-dao-layer">8.1. <span style="color: #4f81bd">The [DAO] layer</span></h2>
 <p>We will combine the various classes required for the application into a single file<em>, impots.py</em>. The objects in this file will then be imported into the scripts that require them.</p>
 <p>We start with the case where the data is in a text file, as in the example in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>.</p>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000498000000E052DB9695.png" style="display:inline-block; margin:4px;width:15.558cm;height:2.963cm;" class="odt-zoomable" data-zoom-src="images/1000000000000498000000E052DB9695.png" /></td></tr></table>
@@ -903,7 +903,7 @@
 <li>the code is similar to that studied in the example in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>.
 <a id="refheading93741200241464"></a></li>
 </ul>
-<h2 id="82-the-business-layer">8.2. <span style="color: #4f81bd"><strong>The [business] layer</strong></span></h2>
+<h2 id="82-the-business-layer">8.2. <span style="color: #4f81bd">The [business] layer</span></h2>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004B4000000D6A4D61673.png" style="display:inline-block; margin:4px;width:15.928cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/10000000000004B4000000D6A4D61673.png" /></td></tr></table>
 
 <p>The [<a id="impotsmetier"></a> ImpotsMetier] class (<em>impots.py</em>) that implements the [business] layer is as follows:</p>
@@ -958,7 +958,7 @@
 <li>the rest of the code is analogous to that studied in the example in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>.
 <a id="refheading93743200241464"></a></li>
 </ul>
-<h2 id="83-the-console-layer">8.3. <span style="color: #4f81bd"><strong>The [console] layer</strong></span></h2>
+<h2 id="83-the-console-layer">8.3. <span style="color: #4f81bd">The [console] layer</span></h2>
 <table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000490000000D60CCF5A6A.png" style="display:inline-block; margin:4px;width:15.452cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/1000000000000490000000D60CCF5A6A.png" /></td></tr></table>
 
 <p>The script implementing the [console] layer (impots-03) is as follows:</p>
@@ -1032,7 +1032,7 @@
 <li>the rest of the code is similar to that studied in the example in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>.</li>
 </ul>
 <p><a id="refheading93745200241464"></a></p>
-<h2 id="84-results">8.4. <span style="color: #4f81bd"><strong>Results</strong></span></h2>
+<h2 id="84-results">8.4. <span style="color: #4f81bd">Results</span></h2>
 <p>The same as those already obtained in the versions using arrays and files.</p>
 <p>The data file <em>impots.txt</em>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
