@@ -804,100 +804,174 @@
 <li><em>&lt;response&gt;&lt;tax&gt;value&lt;/tax&gt;&lt;/response&gt;</em> if the tax could be calculated.</li>
 </ul>
 <p>We use what we have just learned about parsing an XML document.</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000018B00000241DF2C1B2E.png" style="display:inline-block; margin:4px;width:5.226cm;height:7.634cm;" class="odt-zoomable" data-zoom-src="images/100000000000018B00000241DF2C1B2E.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000018B00000241DF2C1B2E.png" width="198" height="289" style="display:inline-block; margin:4px;width:5.226cm;height:7.634cm;" class="odt-zoomable" data-zoom-src="images/100000000000018B00000241DF2C1B2E.png" /></td></tr></table>
 
 <p><a id="refheading383742423505"></a></p>
 <h2 id="151-the-web-service">15.1. <span style="color: #4f81bd">The Web Service</span></h2>
 <p>The web service is no different from the one studied previously, except that the XML response sent to the client is slightly different. The architecture remains the same:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000064D000000E2DC938B19.png" style="display:inline-block; margin:4px;width:17.997cm;height:2.522cm;" class="odt-zoomable" data-zoom-src="images/100000000000064D000000E2DC938B19.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000064D000000E2DC938B19.png" width="680" height="95" style="display:inline-block; margin:4px;width:17.997cm;height:2.522cm;" class="odt-zoomable" data-zoom-src="images/100000000000064D000000E2DC938B19.png" /></td></tr></table>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">The web service (impots_web_02)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line">#!D:\Programs\ActivePython\Python2.7.2\python.exe</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># -*- coding=Utf-8 -*-</span>
-<span class="odt-code-line"># Import the Impots* class module</span>
-<span class="odt-code-line"><span style="color:#0000ff">from </span>impots <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">import </span>cgi<span style="color:#008080">, </span>cgitb<span style="color:#008080">, </span>re</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># Enable display of debug information</span>
-<span class="odt-code-line">cgitb<span style="color:#0000ff">.</span>enable<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># ------------------------------------------------ </span>
-<span class="odt-code-line"># the tax web service</span>
-<span class="odt-code-line"># ------------------------------------------------ </span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># The data required to calculate the tax has been placed in the MySQL table TABLE</span>
-<span class="odt-code-line"># belonging to the BASE database. The table has the following structure</span>
-<span class="odt-code-line"># limits decimal(10,2), coeffR decimal(6,2), coeffN decimal(10,2)</span>
-<span class="odt-code-line"># The parameters for taxable individuals (marital status, number of children, annual salary)</span>
-<span class="odt-code-line"># are sent by the client in the form params=marital status, number of children, annual salary</span>
-<span class="odt-code-line"># the results (marital status, number of children, annual salary, tax due) are returned to the client</span>
-<span class="odt-code-line"># in the form &lt;tax&gt;value&lt;/tax&gt;</span>
-<span class="odt-code-line"># or in the form &lt;error&gt;msg&lt;/error&gt;, if the parameters are invalid</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># the server returns unformatted text to the client</span>
-<span class="odt-code-line"><span style="color:#0000ff">print </span><span style="color:#a31515">&quot;Content-Type: text/plain\n&quot;</span></span>
-<span class="odt-code-line"># start of response</span>
-<span class="odt-code-line"><span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;response&gt;&quot;</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># definition of constants</span>
-<span class="odt-code-line"><span style="color:#008080">USER=</span><span style="color:#a31515">&quot;root&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">PWD=</span><span style="color:#a31515">&quot;&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">HOST=</span><span style="color:#a31515">&quot;localhost&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">DATABASE=</span><span style="color:#a31515">&quot;dbimpots&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">TABLE=</span><span style="color:#a31515">&quot;taxes&quot;</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># instantiate [business] layer</span>
-<span class="odt-code-line"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    business=TaxBusiness<span style="color:#008080">(</span>TaxMySQL<span style="color:#008080">(</span>HOST<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>DATABASE<span style="color:#008080">,</span>TABLE<span style="color:#008080">))</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">except </span><span style="color:#008080">(</span>IOError<span style="color:#008080">, </span>TaxError<span style="color:#008080">) </span><span style="color:#0000ff">as </span>info<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print</span><span style="color:#008080">(</span><span style="color:#a31515">&quot;&lt;error&gt;An error occurred: {0}&lt;/error&gt;&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>infos<span style="color:#008080">))</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># retrieve the line sent by the client to the server</span>
-<span class="odt-code-line"><span style="color:#008080">params = </span>cgi<span style="color:#0000ff">.</span>FieldStorage<span style="color:#008080">()</span><span style="color:#0000ff">.</span>getlist<span style="color:#008080">(</span><span style="color:#a31515">&#x27;params&#x27;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line"># if no parameters, then error</span>
-<span class="odt-code-line"><span style="color:#0000ff">if not </span>params<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;error&gt;The parameter [params] is missing&lt;error&gt;&lt;/response&gt;&quot;</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># process the params parameter  </span>
-<span class="odt-code-line">#print &quot;Parameters received --&gt; %s\n&quot; %(params)</span>
-<span class="odt-code-line">items = params<span style="color:#008080">[</span>0<span style="color:#008080">]</span><span style="color:#0000ff">.</span>strip<span style="color:#008080">()</span><span style="color:#0000ff">.</span>lower<span style="color:#008080">()</span><span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&#x27;,&#x27;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line"># there must be exactly 3 fields</span>
-<span class="odt-code-line"><span style="color:#0000ff">if </span>len<span style="color:#008080">(</span>items<span style="color:#008080">) !</span>= 3<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;error&gt;[%s]: invalid number of parameters&lt;/error&gt;&lt;/response&gt;&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"># the first parameter (marital status) must be yes/no</span>
-<span class="odt-code-line">marie = items<span style="color:#008080">[</span>0<span style="color:#008080">]</span><span style="color:#0000ff">.</span>strip<span style="color:#008080">()</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">if </span>married <span style="color:#008080">!= </span><span style="color:#a31515">&quot;yes&quot; </span><span style="color:#0000ff">and </span>married <span style="color:#008080">!= </span><span style="color:#a31515">&quot;no&quot;</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;error&gt;[%s]: Invalid first parameter&lt;/error&gt;&lt;/response&gt;\n&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"># The second parameter (number of children) must be an integer</span>
-<span class="odt-code-line">match<span style="color:#008080"> = </span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\d+)\s*$&quot;</span><span style="color:#008080">, </span>items<span style="color:#008080">[</span>1<span style="color:#008080">])</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">if not </span>match<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;error&gt;[%s]: Invalid second parameter&lt;/error&gt;&lt;/response&gt;\n&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line">children = int<span style="color:#008080">(</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line"># the third parameter (salary) must be an integer</span>
-<span class="odt-code-line">match<span style="color:#008080"> = </span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\d+)\s*$&quot;</span><span style="color:#008080">, </span>items<span style="color:#008080">[</span>2<span style="color:#008080">])</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">if not </span>match<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;error&gt;[%s]: Invalid second parameter&lt;/error&gt;&lt;/response&gt;\n&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line">salary = int<span style="color:#008080">(</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">])</span></span>
-<span class="odt-code-line"># calculate the tax</span>
-<span class="odt-code-line">tax<span style="color:#008080"> = </span>job<span style="color:#0000ff">.</span>calculate<span style="color:#008080">(</span>spouse<span style="color:#008080">, </span>children<span style="color:#008080">, </span>salary<span style="color:#008080">)</span></span>
-<span class="odt-code-line"># return the result</span>
-<span class="odt-code-line"><span style="color:#0000ff">print </span><span style="color:#a31515">&quot;&lt;tax&gt;%s&lt;/tax&gt;&lt;/response&gt;\n&quot; </span><span style="color:#008080">% (</span>tax<span style="color:#008080">)</span></span>
-<span class="odt-code-line"># end</span>
-<span class="odt-code-line"></span>
-</code></pre></div>
-
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#__codelineno-0-65">65</a></span>
+<span class="normal"><a href="#__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#__codelineno-0-70">70</a></span>
+<span class="normal"><a href="#__codelineno-0-71">71</a></span>
+<span class="normal"><a href="#__codelineno-0-72">72</a></span>
+<span class="normal"><a href="#__codelineno-0-73">73</a></span>
+<span class="normal"><a href="#__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#__codelineno-0-77">77</a></span>
+<span class="normal"><a href="#__codelineno-0-78">78</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">#   !D:\Programs\ActivePython\Python2.7.2\python.exe</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">#    -*- coding=Utf-8 -*-</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">#    import of Impots* class module</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">impots</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cgi</span><span class="o">,</span><span class="nn">cgitb</span><span class="o">,</span><span class="nn">re</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="c1">#    allow debugging information to be displayed</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="n">cgitb</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="c1"># ------------------------------------------------ </span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="c1">#  tax web service</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="c1"># ------------------------------------------------ </span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="c1">#  the data required to calculate the tax has been placed in table mysqL TABLE</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="c1">#  belonging to the BASE database. The table has the following structure</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="c1">#    limits decimal(10,2), coeffR decimal(6,2), coeffN decimal(10,2)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="c1">#  taxable person parameters (marital status, number of children, annual salary)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="c1">#  are sent by the customer in the form params=marital status, number of children, annual salary</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="c1">#  results (marital status, number of children, annual salary, tax payable) are returned to the customer</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="c1">#  in the form &lt;impot&gt;value&lt;/impot&gt;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="c1">#  or as &lt;error&gt;msg&lt;/error&gt;, if parameters are invalid</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="c1">#  the server returns unformatted text to the client</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="nb">print</span> <span class="s2">&quot;Content-Type: text/plain</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="c1">#    start of answer</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="nb">print</span> <span class="s2">&quot;&lt;reponse&gt;&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="c1">#    definition of constants</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="n">USER</span><span class="o">=</span><span class="s2">&quot;root&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="n">PWD</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="n">HOTE</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="n">BASE</span><span class="o">=</span><span class="s2">&quot;dbimpots&quot;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="n">TABLE</span><span class="o">=</span><span class="s2">&quot;impots&quot;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="c1">#    instantiation layer [metier]</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>    <span class="n">metier</span><span class="o">=</span><span class="n">ImpotsMetier</span><span class="p">(</span><span class="n">ImpotsMySQL</span><span class="p">(</span><span class="n">HOTE</span><span class="p">,</span><span class="n">USER</span><span class="p">,</span><span class="n">PWD</span><span class="p">,</span><span class="n">BASE</span><span class="p">,</span><span class="n">TABLE</span><span class="p">))</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="n">ImpotsError</span><span class="p">)</span> <span class="k">as</span> <span class="n">infos</span><span class="p">:</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;&lt;erreur&gt;Une erreur s&#39;est produite : </span><span class="si">{0}</span><span class="s2">&lt;/erreur&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infos</span><span class="p">))</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="c1">#  retrieve the line sent by the client to the server</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="n">params</span><span class="o">=</span><span class="n">cgi</span><span class="o">.</span><span class="n">FieldStorage</span><span class="p">()</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="c1">#  if no parameters then error</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="p">:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>    <span class="nb">print</span> <span class="s2">&quot;&lt;erreur&gt;Le parametre [params] est absent&lt;erreur&gt;&lt;/reponse&gt;&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="c1">#  we use the params parameter  </span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="c1">#   print &quot;parameters received --&gt; %s\n&quot; %(params)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="n">items</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="c1">#  there must be only 3 fields</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="o">!=</span><span class="mi">3</span><span class="p">:</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="nb">print</span> <span class="s2">&quot;&lt;erreur&gt;[</span><span class="si">%s</span><span class="s2">] : nombre de parametres invalide&lt;/erreur&gt;&lt;/reponse&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="c1">#  first parameter (marital status) must be yes/no</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="n">marie</span><span class="o">=</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="k">if</span> <span class="n">marie</span><span class="o">!=</span><span class="s2">&quot;oui&quot;</span> <span class="ow">and</span> <span class="n">marie</span> <span class="o">!=</span> <span class="s2">&quot;non&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="nb">print</span> <span class="s2">&quot;&lt;erreur&gt;[</span><span class="si">%s</span><span class="s2">] : 1er parametre invalide&lt;/erreur&gt;&lt;/reponse&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="c1">#  the second parameter (number of children) must be an integer</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\d+)\s*$&quot;</span><span class="p">,</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="nb">print</span> <span class="s2">&quot;&lt;erreur&gt;[</span><span class="si">%s</span><span class="s2">] : 2ieme parametre invalide&lt;/erreur&gt;&lt;/reponse&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="n">enfants</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="c1">#  the third parameter (salary) must be an integer</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\d+)\s*$&quot;</span><span class="p">,</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>    <span class="nb">print</span> <span class="s2">&quot;&lt;erreur&gt;[</span><span class="si">%s</span><span class="s2">] : 2ieme parametre invalide&lt;/erreur&gt;&lt;/reponse&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="n">salaire</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="c1">#  tax calculation</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="n">impot</span><span class="o">=</span><span class="n">metier</span><span class="o">.</span><span class="n">calculer</span><span class="p">(</span><span class="n">marie</span><span class="p">,</span><span class="n">enfants</span><span class="p">,</span><span class="n">salaire</span><span class="p">)</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="c1">#  return the result</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="nb">print</span> <span class="s2">&quot;&lt;impot&gt;</span><span class="si">%s</span><span class="s2">&lt;/impot&gt;&lt;/reponse&gt;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">impot</span><span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="c1">#    end</span>
+</code></pre></div></td></tr></table></div>
 <p><strong>Notes</strong>:</p>
 <p>This web service differs from the previous one only in the nature of its response:</p>
 <p><em>&lt;response&gt;&lt;error&gt;msg&lt;/error&gt;&lt;/response&gt;</em> in case of an error instead of <em>&lt;error&gt;msg&lt;/error&gt;</em></p>
@@ -910,74 +984,134 @@
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"><span style="color:#0000ff">import </span>httplib<span style="color:#008080">, </span>urllib<span style="color:#008080">, </span>re</span>
-<span class="odt-code-line"><span style="color:#0000ff">import </span>xml<span style="color:#0000ff">.</span>sax<span style="color:#008080">, </span>xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>handler</span>
-<span class="odt-code-line"># XML handling class</span>
-<span class="odt-code-line"><span style="color:#0000ff">class </span>XmlHandler<span style="color:#008080">(</span>xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>handler<span style="color:#0000ff">.</span>ContentHandler<span style="color:#008080">):</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#008000"># function called when an opening tag is encountered</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>startElement<span style="color:#008080">(</span>self<span style="color:#008080">, </span>name<span style="color:#008080">, </span>attributes<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># note the current element</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">global </span>currentElement</span>
-<span class="odt-code-line">        <span style="color:#008080">currentElement = </span>name<span style="color:#0000ff">.</span>strip<span style="color:#008080">()</span><span style="color:#0000ff">.</span>lower<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#008000"># Function called when an end tag is encountered</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>endElement<span style="color:#008080">(</span>self<span style="color:#008080">, </span>name<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># do nothing</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">pass</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#008000"># the data handling function</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>characters<span style="color:#008080">(</span>self<span style="color:#008080">, </span>data<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># data</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">global </span>current_element<span style="color:#008080">, </span>elements</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">        <span style="color:#008000"># the data is retrieved</span></span>
-<span class="odt-code-line">        <span style="color:#008080">match = </span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(.+?)\s*$&quot;</span><span style="color:#008080">, </span>data<span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if </span>match<span style="color:#008080">:</span></span>
-<span class="odt-code-line">            elements<span style="color:#008080">[</span>currentElement<span style="color:#008080">] </span>= match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span><span style="color:#0000ff">.</span>lower<span style="color:#008080">()</span></span>
-<span class="odt-code-line">    </span>
-<span class="odt-code-line"><span style="color:#0000ff">def </span>getXmlResults<span style="color:#008080">(</span>response<span style="color:#008080">):</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># parse the XML response</span></span>
-<span class="odt-code-line">    xml<span style="color:#0000ff">.</span>sax<span style="color:#0000ff">.</span>parseString<span style="color:#008080">(</span>response<span style="color:#008080">, </span>XmlHandler<span style="color:#008080">())</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># return the results</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">if </span>elements<span style="color:#0000ff">.</span>has_key<span style="color:#008080">(</span><span style="color:#a31515">&#x27;error&#x27;</span><span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#008080">(</span>elements<span style="color:#008080">[</span><span style="color:#a31515">&#x27;error&#x27;</span><span style="color:#008080">], </span><span style="color:#a31515">&quot;&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#008080">(</span><span style="color:#a31515">&quot;&quot;</span><span style="color:#008080">, </span>elements<span style="color:#008080">[</span><span style="color:#a31515">&#x27;tax&#x27;</span><span style="color:#008080">])</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># ------------------------------------------------------------ main</span>
-<span class="odt-code-line"># constants</span>
-<span class="odt-code-line"><span style="color:#008080">HOST=</span><span style="color:#a31515">&quot;localhost&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">URL=</span><span style="color:#a31515">&quot;/cgi-bin/impots_web_02b.py&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">data=(</span><span style="color:#a31515">&quot;yes,2,200000&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;no,2,200000&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;yes,3,200000&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;no,3,200000&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;x,y,z,t&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;x,2,200000&quot;</span><span style="color:#008080">, </span><span style="color:#a31515">&quot;yes,x,200000&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;yes,2,x&quot;</span><span style="color:#008080">);</span></span>
-<span class="odt-code-line"># global variables</span>
-<span class="odt-code-line"><span style="color:#008080">current_element=</span><span style="color:#a31515">&quot;&quot;</span></span>
-<span class="odt-code-line">elements={}</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># connection</span>
-<span class="odt-code-line"><span style="color:#008080">connection = </span>httplib<span style="color:#0000ff">.</span>HTTPConnection<span style="color:#008080">(</span>HOST<span style="color:#008080">)</span></span>
-<span class="odt-code-line"># logging</span>
-<span class="odt-code-line">#connection.set_debuglevel(1)</span>
-<span class="odt-code-line"># loop through the data to send to the server</span>
-<span class="odt-code-line"><span style="color:#0000ff">for </span>params <span style="color:#0000ff">in </span>data<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># parameters must be encoded before being sent to the server</span></span>
-<span class="odt-code-line">    params <span style="color:#008080">= </span>urllib<span style="color:#0000ff">.</span>urlencode<span style="color:#008080">({</span><span style="color:#a31515">&#x27;params</span><span style="color:#008080">&#x27;: </span>params<span style="color:#008080">})</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># send the request</span></span>
-<span class="odt-code-line">    connection<span style="color:#0000ff">.</span>request<span style="color:#008080">(</span><span style="color:#a31515">&quot;POST&quot;</span><span style="color:#008080">, </span>URL<span style="color:#008080">, </span>parameters<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># process the response (XML stream)</span></span>
-<span class="odt-code-line">    <span style="color:#008080">response = </span>connection<span style="color:#0000ff">.</span>getresponse<span style="color:#008080">()</span><span style="color:#0000ff">.</span>read<span style="color:#008080">()</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># parse the XML file</span></span>
-<span class="odt-code-line">    <span style="color:#008080">(</span>error<span style="color:#008080">, </span>result<span style="color:#008080">) = </span>getXmlResults<span style="color:#008080">(</span>response<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">if not </span>error<span style="color:#008080">:</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;impot[%s]=%s&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">, </span>impot<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;error[%s]=%s&quot; </span><span style="color:#008080">% (</span>params<span style="color:#008080">, </span>error<span style="color:#008080">)</span></span>
-<span class="odt-code-line"></span>
-</code></pre></div>
-
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span>
+<span class="normal"><a href="#__codelineno-1-44">44</a></span>
+<span class="normal"><a href="#__codelineno-1-45">45</a></span>
+<span class="normal"><a href="#__codelineno-1-46">46</a></span>
+<span class="normal"><a href="#__codelineno-1-47">47</a></span>
+<span class="normal"><a href="#__codelineno-1-48">48</a></span>
+<span class="normal"><a href="#__codelineno-1-49">49</a></span>
+<span class="normal"><a href="#__codelineno-1-50">50</a></span>
+<span class="normal"><a href="#__codelineno-1-51">51</a></span>
+<span class="normal"><a href="#__codelineno-1-52">52</a></span>
+<span class="normal"><a href="#__codelineno-1-53">53</a></span>
+<span class="normal"><a href="#__codelineno-1-54">54</a></span>
+<span class="normal"><a href="#__codelineno-1-55">55</a></span>
+<span class="normal"><a href="#__codelineno-1-56">56</a></span>
+<span class="normal"><a href="#__codelineno-1-57">57</a></span>
+<span class="normal"><a href="#__codelineno-1-58">58</a></span>
+<span class="normal"><a href="#__codelineno-1-59">59</a></span>
+<span class="normal"><a href="#__codelineno-1-60">60</a></span>
+<span class="normal"><a href="#__codelineno-1-61">61</a></span>
+<span class="normal"><a href="#__codelineno-1-62">62</a></span>
+<span class="normal"><a href="#__codelineno-1-63">63</a></span>
+<span class="normal"><a href="#__codelineno-1-64">64</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httplib</span><span class="o">,</span><span class="nn">urllib</span><span class="o">,</span><span class="nn">re</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">xml.sax</span><span class="o">,</span><span class="w"> </span><span class="nn">xml.sax.handler</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">#    management class XML</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">XmlHandler</span><span class="p">(</span><span class="n">xml</span><span class="o">.</span><span class="n">sax</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">ContentHandler</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="c1">#  function called when a start tag is encountered</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">startElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">attributs</span><span class="p">):</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="c1">#  note the current element</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>        <span class="k">global</span> <span class="n">elementcourant</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>        <span class="n">elementcourant</span><span class="o">=</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span class="c1">#  the function called when an end tag is encountered</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">endElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>        <span class="c1">#    we do nothing</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>        <span class="k">pass</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="c1">#  the data management function</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">characters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>        <span class="c1">#    data</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>        <span class="k">global</span> <span class="n">elementcourant</span><span class="p">,</span><span class="n">elements</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>        <span class="c1">#  data are retrieved</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(.+?)\s*$&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a>            <span class="n">elements</span><span class="p">[</span><span class="n">elementcourant</span><span class="p">]</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="k">def</span><span class="w"> </span><span class="nf">getResultatsXml</span><span class="p">(</span><span class="n">reponse</span><span class="p">):</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a>    <span class="c1">#  we analyze the XML response</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a>    <span class="n">xml</span><span class="o">.</span><span class="n">sax</span><span class="o">.</span><span class="n">parseString</span><span class="p">(</span><span class="n">reponse</span><span class="p">,</span><span class="n">XmlHandler</span><span class="p">())</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a>    <span class="c1">#  we return the results</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a>    <span class="k">if</span> <span class="n">elements</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;erreur&#39;</span><span class="p">):</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;erreur&#39;</span><span class="p">],</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a>        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;impot&#39;</span><span class="p">])</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="c1">#    ------------------------------------------------------------ main</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="c1">#    constant</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="n">HOST</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="n">URL</span><span class="o">=</span><span class="s2">&quot;/cgi-bin/impots_web_02b.py&quot;</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;oui,2,200000&quot;</span><span class="p">,</span><span class="s2">&quot;non,2,200000&quot;</span><span class="p">,</span><span class="s2">&quot;oui,3,200000&quot;</span><span class="p">,</span><span class="s2">&quot;non,3,200000&quot;</span><span class="p">,</span><span class="s2">&quot;x,y,z,t&quot;</span><span class="p">,</span><span class="s2">&quot;x,2,200000&quot;</span><span class="p">,</span> <span class="s2">&quot;oui,x,200000&quot;</span><span class="p">,</span><span class="s2">&quot;oui,2,x&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="c1">#    global variables</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="n">elementcourant</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="n">elements</span><span class="o">=</span><span class="p">{}</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="c1">#    connection</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="n">connexion</span><span class="o">=</span><span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">HOST</span><span class="p">)</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="c1">#    follow-up</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="c1">#   connexion.set_debuglevel(1)</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="c1">#  loop over the data to be sent to the server</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a>    <span class="c1">#  parameters must be encoded before being sent to the server</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a>    <span class="n">parametres</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">})</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a>    <span class="c1">#  send request</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a>    <span class="n">connexion</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="n">URL</span><span class="p">,</span><span class="n">parametres</span><span class="p">)</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a>    <span class="c1">#    response processing (stream XML)</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a>    <span class="n">reponse</span><span class="o">=</span><span class="n">connexion</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a>    <span class="c1">#    xml file processing</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a>    <span class="p">(</span><span class="n">erreur</span><span class="p">,</span><span class="n">impot</span><span class="p">)</span><span class="o">=</span><span class="n">getResultatsXml</span><span class="p">(</span><span class="n">reponse</span><span class="p">)</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">erreur</span><span class="p">:</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a>        <span class="nb">print</span> <span class="s2">&quot;impot[</span><span class="si">%s</span><span class="s2">]=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">impot</span><span class="p">)</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a>        <span class="nb">print</span> <span class="s2">&quot;erreur[</span><span class="si">%s</span><span class="s2">]=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">erreur</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
 <p>Notes:</p>
 <ul>
 <li>The XML feed from the web service is processed by the <em>getResultatsXml</em> function (line 60);</li>
@@ -993,21 +1127,21 @@
 <a id="refheading383782423505"></a></li>
 </ul>
 <h2 id="153-the-results">15.3. <span style="color: #4f81bd">The results</span></h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>impot[yes,2,200000]=22504.0
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>impot[no,2,200000]=33388.0
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>impot[yes,3,200000]=16400.0
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>tax[no,3,200000]=22504.0
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>error[x,y,z,t]=[x,y,z,t]: invalid number of parameters
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>error[x,2,200000]=[x,2,200000]: invalid first parameter
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>error[yes,x,200000]=[yes,x,200000]: 2nd parameter invalid
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>error[yes,2,x]=[yes,2,x]: 2nd parameter invalid
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>impot[oui,2,200000]=22504.0
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>impot[non,2,200000]=33388.0
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>impot[oui,3,200000]=16400.0
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>impot[non,3,200000]=22504.0
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>erreur[x,y,z,t]=[x,y,z,t] : nombre de parametres invalide
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>erreur[x,2,200000]=[x,2,200000] : 1er parametre invalide
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>erreur[oui,x,200000]=[oui,x,200000] : 2ieme parametre invalide
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>erreur[oui,2,x]=[oui,2,x] : 2ieme parametre invalide
 </code></pre></div></td></tr></table></div>
 
 
@@ -1044,8 +1178,8 @@
     <div class="md-footer-meta__inner">
 
       <div>
-        <a href="https://tahe.developpez.com" target="_blank">
-          https://tahe.developpez.com
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
         </a>
         <br>
         This tutorial written by <strong>Serge Tahé</strong> is made available to the public under the terms of the

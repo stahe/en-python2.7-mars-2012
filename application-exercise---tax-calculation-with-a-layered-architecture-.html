@@ -812,10 +812,10 @@
 <p><a id="refheading382922423505"></a>
 <a id="exo-impots-objets"></a></p>
 <h1 id="8-application-exercise-tax-calculation-with-a-layered-architecture">8. <span style="color: #365f91"><strong>Application Exercise – [</strong><strong>Tax Calculation</strong><strong>] with a layered architecture</strong></span></h1>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000180000002582CAB8AF3.png" style="display:inline-block; margin:4px;width:5.08cm;height:7.938cm;" class="odt-zoomable" data-zoom-src="images/1000000000000180000002582CAB8AF3.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000180000002582CAB8AF3.png" width="192" height="300" style="display:inline-block; margin:4px;width:5.08cm;height:7.938cm;" class="odt-zoomable" data-zoom-src="images/1000000000000180000002582CAB8AF3.png" /></td></tr></table>
 
 <p>Here we revisit the exercise described in Section<a href="#exo-impots"><u><span style="color: #0563c1"> 4.1</span></u></a>. We start with the text-file version described in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>. To handle this example with objects, we will use a three-tier architecture:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000491000000EC26160B42.png" style="display:inline-block; margin:4px;width:15.466cm;height:3.122cm;" class="odt-zoomable" data-zoom-src="images/1000000000000491000000EC26160B42.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000491000000EC26160B42.png" width="585" height="118" style="display:inline-block; margin:4px;width:15.466cm;height:3.122cm;" class="odt-zoomable" data-zoom-src="images/1000000000000491000000EC26160B42.png" /></td></tr></table>
 
 <ul>
 <li>the [DAO] (Data Access Object) layer handles data access. In the following, this data will first be found in a text file, then in a MySQL database;</li>
@@ -833,67 +833,117 @@
 <h2 id="81-the-dao-layer">8.1. <span style="color: #4f81bd">The [DAO] layer</span></h2>
 <p>We will combine the various classes required for the application into a single file<em>, impots.py</em>. The objects in this file will then be imported into the scripts that require them.</p>
 <p>We start with the case where the data is in a text file, as in the example in Section<a href="#exo-impots-fichiers"><u><span style="color: #0563c1"> 4.3</span></u></a>.</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000498000000E052DB9695.png" style="display:inline-block; margin:4px;width:15.558cm;height:2.963cm;" class="odt-zoomable" data-zoom-src="images/1000000000000498000000E052DB9695.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000498000000E052DB9695.png" width="588" height="112" style="display:inline-block; margin:4px;width:15.558cm;height:2.963cm;" class="odt-zoomable" data-zoom-src="images/1000000000000498000000E052DB9695.png" /></td></tr></table>
 
 <p>The code for the [<a id="impotsfile"></a> ImpotsFile] class (<em>impots.py</em>) that implements the [DAO] layer is as follows:</p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"><span style="color:#0000ff">import </span>math<span style="color:#008080">, </span>sys</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># --------------------------------------------------------------------------</span>
-<span class="odt-code-line"># custom exception class</span>
-<span class="odt-code-line"><span style="color:#0000ff">class </span>ImpotsError<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">pass</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># --------------------------------------------------------------------------</span>
-<span class="odt-code-line"><span style="color:#0000ff">class </span>Utilities<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#a31515">&quot;&quot;&quot;utility functions class&quot;&quot;&quot;</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>cutNewLineChar<span style="color:#008080">(</span>self<span style="color:#008080">, </span>line<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># Remove the end-of-line character from line if it exists</span></span>
-<span class="odt-code-line">        l <span style="color:#008080">= </span>len<span style="color:#008080">(</span>line<span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">while</span><span style="color:#008080">(</span>line<span style="color:#008080">[</span>l-1<span style="color:#008080">] == </span><span style="color:#a31515">&quot;\n&quot; </span><span style="color:#0000ff">or </span>line<span style="color:#008080">[</span>l-1<span style="color:#008080">] == </span><span style="color:#a31515">&quot;\r&quot;</span><span style="color:#008080">):</span></span>
-<span class="odt-code-line">            l <span style="color:#008080">-=</span> 1</span>
-<span class="odt-code-line">        <span style="color:#0000ff">return</span><span style="color:#008080">(</span>line<span style="color:#008080">[</span>0<span style="color:#008080">:</span>l<span style="color:#008080">])</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># --------------------------------------------------------------------------</span>
-<span class="odt-code-line"><span style="color:#0000ff">class </span>TaxFile<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>IMPOTS<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># IMPOTS: the name of the file containing the data for the limits, coeffR, and coeffN tables</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># open the file</span></span>
-<span class="odt-code-line">        data = open<span style="color:#008080">(</span>IMPOTS<span style="color:#008080">, </span><span style="color:#a31515">&quot;r&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># a Utilities object</span></span>
-<span class="odt-code-line">        <span style="color:#008080">u = </span>Utilities<span style="color:#008080">()</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># Create the 3 tables—we assume that the 3 lines in IMPOTS are syntactically correct</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># -- line 1</span></span>
-<span class="odt-code-line">        <span style="color:#008080">line = </span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if </span><span style="color:#008080">line == </span><span style="color:#a31515">&#x27;&#x27;</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">            <span style="color:#0000ff">raise </span>TaxError<span style="color:#008080">(</span><span style="color:#a31515">&quot;The first line of the file {0} is missing&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>TAXES<span style="color:#008080">))</span></span>
-<span class="odt-code-line">        limits<span style="color:#008080"> = </span>u<span style="color:#0000ff">.</span>cutNewLineChar<span style="color:#008080">(</span>line<span style="color:#008080">)</span><span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&quot;:&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">for </span>i <span style="color:#0000ff">in </span>range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>limits<span style="color:#008080">)):</span></span>
-<span class="odt-code-line">            limits<span style="color:#008080">[</span>i<span style="color:#008080">] </span>= int<span style="color:#008080">(</span>limits<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># -- line 2</span></span>
-<span class="odt-code-line">        <span style="color:#008080">line = </span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if </span><span style="color:#008080">line == </span><span style="color:#a31515">&#x27;&#x27;</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">            <span style="color:#0000ff">raise </span>ImpotsError<span style="color:#008080">(</span><span style="color:#a31515">&quot;The second line of the file {0} is missing&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>IMPOTS<span style="color:#008080">))</span></span>
-<span class="odt-code-line">        coeffR<span style="color:#008080"> = </span>u<span style="color:#0000ff">.</span>cutNewLineChar<span style="color:#008080">(</span>line<span style="color:#008080">)</span><span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&quot;:&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">for </span>i <span style="color:#0000ff">in </span>range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>coeffR<span style="color:#008080">)):</span></span>
-<span class="odt-code-line">            coeffR<span style="color:#008080">[</span>i<span style="color:#008080">] </span>= float<span style="color:#008080">(</span>coeffR<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># -- line 3</span></span>
-<span class="odt-code-line">        <span style="color:#008080">line = </span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if </span><span style="color:#008080">line == </span><span style="color:#a31515">&#x27;&#x27;</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">            <span style="color:#0000ff">raise </span>ImpotsError<span style="color:#008080">(</span><span style="color:#a31515">&quot;The third line of the file {0} is missing&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>IMPOTS<span style="color:#008080">))</span></span>
-<span class="odt-code-line">        coeffN<span style="color:#008080"> = </span>u<span style="color:#0000ff">.</span>cutNewLineChar<span style="color:#008080">(</span>line<span style="color:#008080">)</span><span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&quot;:&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">for </span>i <span style="color:#0000ff">in </span>range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>coeffN<span style="color:#008080">)):</span></span>
-<span class="odt-code-line">            coeffN<span style="color:#008080">[</span>i<span style="color:#008080">] </span>= float<span style="color:#008080">(</span>coeffN<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># end</span></span>
-<span class="odt-code-line">        <span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>limits<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>coeffR<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>coeffN<span style="color:#008080">) = (</span>limits<span style="color:#008080">, </span>coeffR<span style="color:#008080">, </span>coeffN<span style="color:#008080">)</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>getData<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">return </span><span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>limits<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>coeffR<span style="color:#008080">, </span>self<span style="color:#0000ff">.</span>coeffN<span style="color:#008080">)</span></span>
-<span class="odt-code-line"></span>
-</code></pre></div>
-
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1"># --------------------------------------------------------------------------</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">#    exceptional owner class</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImpotsError</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>    <span class="k">pass</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="c1"># --------------------------------------------------------------------------</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">Utilitaires</span><span class="p">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;classe de fonctions utilitaires&quot;&quot;&quot;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">cutNewLineChar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ligne</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>        <span class="c1">#  delete the end-of-line mark if it exists</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>        <span class="n">l</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ligne</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>        <span class="k">while</span><span class="p">(</span><span class="n">ligne</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">or</span> <span class="n">ligne</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a>            <span class="n">l</span><span class="o">-=</span><span class="mi">1</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a>        <span class="k">return</span><span class="p">(</span><span class="n">ligne</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">l</span><span class="p">])</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="c1"># --------------------------------------------------------------------------</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="k">class</span><span class="w"> </span><span class="nc">ImpotsFile</span><span class="p">:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">IMPOTS</span><span class="p">):</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>        <span class="c1">#  IMPOTS: the name of the file containing data from the limit tables, coeffR, coeffN</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>        <span class="c1">#  open the file</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>        <span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">IMPOTS</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="c1">#    a Utilities object</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>        <span class="n">u</span><span class="o">=</span><span class="n">Utilitaires</span><span class="p">()</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a>        <span class="c1">#  create the 3 tables - assume that the 3 rows of IMPOTS are syntactically correct</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>        <span class="c1">#  -- line 1</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>        <span class="n">ligne</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a>        <span class="k">if</span> <span class="n">ligne</span><span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>            <span class="k">raise</span> <span class="n">ImpotsError</span><span class="p">(</span><span class="s2">&quot;La premiere ligne du fichier </span><span class="si">{0}</span><span class="s2"> est absente&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">IMPOTS</span><span class="p">))</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a>        <span class="n">limites</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cutNewLineChar</span><span class="p">(</span><span class="n">ligne</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">limites</span><span class="p">)):</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a>            <span class="n">limites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">limites</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>        <span class="c1">#  -- line 2</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a>        <span class="n">ligne</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a>        <span class="k">if</span> <span class="n">ligne</span><span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>            <span class="k">raise</span> <span class="n">ImpotsError</span><span class="p">(</span><span class="s2">&quot;La deuxieme ligne du fichier </span><span class="si">{0}</span><span class="s2"> est absente&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">IMPOTS</span><span class="p">))</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="n">coeffR</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cutNewLineChar</span><span class="p">(</span><span class="n">ligne</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coeffR</span><span class="p">)):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>            <span class="n">coeffR</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">coeffR</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="c1">#  -- line 3</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a>        <span class="n">ligne</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>        <span class="k">if</span> <span class="n">ligne</span><span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>            <span class="k">raise</span> <span class="n">ImpotsError</span><span class="p">(</span><span class="s2">&quot;La troisieme ligne du fichier </span><span class="si">{0}</span><span class="s2"> est absente&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">IMPOTS</span><span class="p">))</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>        <span class="n">coeffN</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cutNewLineChar</span><span class="p">(</span><span class="n">ligne</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coeffN</span><span class="p">)):</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>            <span class="n">coeffN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">coeffN</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>        <span class="c1">#    end</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limites</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffN</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">limites</span><span class="p">,</span><span class="n">coeffR</span><span class="p">,</span><span class="n">coeffN</span><span class="p">)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">getData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a>        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">limites</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coeffN</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
 <p>Notes:</p>
 <ul>
 <li>lines 7-8: we define an <em>ImpotsError</em> class derived from the <em>Exception</em> class. This class adds nothing to the <em>Exception</em> class. We use it solely to have a custom exception class. This class could be expanded later;</li>
@@ -904,51 +954,51 @@
 <a id="refheading93741200241464"></a></li>
 </ul>
 <h2 id="82-the-business-layer">8.2. <span style="color: #4f81bd">The [business] layer</span></h2>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004B4000000D6A4D61673.png" style="display:inline-block; margin:4px;width:15.928cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/10000000000004B4000000D6A4D61673.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000004B4000000D6A4D61673.png" width="602" height="107" style="display:inline-block; margin:4px;width:15.928cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/10000000000004B4000000D6A4D61673.png" /></td></tr></table>
 
 <p>The [<a id="impotsmetier"></a> ImpotsMetier] class (<em>impots.py</em>) that implements the [business] layer is as follows:</p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line"><span style="color:#0000ff">class </span>ImpotsMetier<span style="color:#008080">:</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#008000"># constructor</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># retrieve a pointer to the [DAO] layer</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">, </span>dao<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        self<span style="color:#0000ff">.</span>dao <span style="color:#008080">= </span>dao</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">    <span style="color:#008000"># calculate the tax</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># --------------------------------------------------------------------------</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">def </span>calculate<span style="color:#008080">(</span>self<span style="color:#008080">, </span>spouse<span style="color:#008080">, </span>children<span style="color:#008080">, </span>salary<span style="color:#008080">):</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># married: yes, no</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># children: number of children</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># salary: annual salary</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">        <span style="color:#008000"># request the data needed for the calculation from the [dao] layer</span></span>
-<span class="odt-code-line">        <span style="color:#008080">(</span>limits<span style="color:#008080">, </span>coeffR<span style="color:#008080">, </span>coeffN<span style="color:#008080">) </span>= self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getData<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line">       <span style="color:#008000"># number of shares</span></span>
-<span class="odt-code-line">        marie<span style="color:#008080"> = </span>marie<span style="color:#0000ff">.</span>lower<span style="color:#008080">()</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if</span><span style="color:#008080">(marie==</span><span style="color:#a31515">&quot;yes&quot;</span><span style="color:#008080">):</span></span>
-<span class="odt-code-line">            nbParts = float<span style="color:#008080">(</span>children<span style="color:#008080">) /</span> 2 + 2</span>
-<span class="odt-code-line">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">            nbParts = float<span style="color:#008080">(</span>children<span style="color:#008080">) /</span> 2 + 1</span>
-<span class="odt-code-line">        <span style="color:#008000"># add 1/2 portion if there are at least 3 children</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">if </span>children <span style="color:#008080">&gt;=</span> 3<span style="color:#008080">:</span></span>
-<span class="odt-code-line">            <span style="color:#008080">nbParts +=</span> 0.5</span>
-<span class="odt-code-line">        <span style="color:#008000"># taxable income</span></span>
-<span class="odt-code-line">        taxableIncome=0.72*salary</span>
-<span class="odt-code-line">        <span style="color:#008000"># family quotient</span></span>
-<span class="odt-code-line">        familyQuotient = taxableIncome <span style="color:#008080">/ </span>nbParts</span>
-<span class="odt-code-line">        <span style="color:#008000"># is placed at the end of the limits array to stop the following loop</span></span>
-<span class="odt-code-line">        limits<span style="color:#008080">[</span>len<span style="color:#008080">(</span>limits<span style="color:#008080">)</span>-1<span style="color:#008080">]</span>=quota</span>
-<span class="odt-code-line">        <span style="color:#008000"># tax calculation</span></span>
-<span class="odt-code-line">        i=0</span>
-<span class="odt-code-line">        <span style="color:#0000ff">while </span>quotient <span style="color:#008080">&gt; </span>limits<span style="color:#008080">[</span>i<span style="color:#008080">]:</span></span>
-<span class="odt-code-line">            <span style="color:#008080">i</span> = i <span style="color:#008080">+</span> 1</span>
-<span class="odt-code-line">        <span style="color:#008000"># Since quotient is stored at the end of the limits array, the previous loop</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># cannot go beyond the limits array</span></span>
-<span class="odt-code-line">        <span style="color:#008000"># now we can calculate the tax</span></span>
-<span class="odt-code-line">        <span style="color:#0000ff">return </span>math<span style="color:#0000ff">.</span>floor<span style="color:#008080">(taxableIncome * (</span>float<span style="color:#008080">)(</span>coeffR<span style="color:#008080">[</span>i<span style="color:#008080">]) - numShares * (</span>float<span style="color:#008080">)(</span>coeffN<span style="color:#008080">[</span>i<span style="color:#008080">]))</span></span>
-<span class="odt-code-line"></span>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> ImpotsMetier<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008000"># constructeur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008000"># on récupère un pointeur sur la couche [dao]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span> dao<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>dao<span style="color:#008080">=</span>dao</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008000"># calcul de l&#x27;impôt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008000"># --------------------------------------------------------------------------</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> calculer<span style="color:#008080">(</span>self<span style="color:#008080">,</span>marie<span style="color:#008080">,</span>enfants<span style="color:#008080">,</span>salaire<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># marié : oui, non</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># enfants : nombre d&#x27;enfants</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># salaire : salaire annuel</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># on demande à la couche [dao] les données nécessaires au calcul</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008080">(</span>limites<span style="color:#008080">,</span> coeffR<span style="color:#008080">,</span> coeffN<span style="color:#008080">)=</span>self<span style="color:#0000ff">.</span>dao<span style="color:#0000ff">.</span>getData<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">       <span style="color:#008000"># nombre de parts</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        marie<span style="color:#008080">=</span>marie<span style="color:#0000ff">.</span>lower<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span><span style="color:#008080">(</span>marie<span style="color:#008080">==</span><span style="color:#a31515">&quot;oui&quot;</span><span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            nbParts<span style="color:#008080">=</span>float<span style="color:#008080">(</span>enfants<span style="color:#008080">)/</span>2<span style="color:#008080">+</span>2</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            nbParts<span style="color:#008080">=</span>float<span style="color:#008080">(</span>enfants<span style="color:#008080">)/</span>2<span style="color:#008080">+</span>1</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># une 1/2 part de plus si au moins 3 enfants</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> enfants<span style="color:#008080">&gt;=</span>3<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            nbParts<span style="color:#008080">+=</span>0.5</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># revenu imposable</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        revenuImposable<span style="color:#008080">=</span>0.72<span style="color:#008080">*</span>salaire</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># quotient familial</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        quotient<span style="color:#008080">=</span>revenuImposable<span style="color:#008080">/</span>nbParts</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># est mis à la fin du tableau limites pour arrêter la boucle qui suit</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        limites<span style="color:#008080">[</span>len<span style="color:#008080">(</span>limites<span style="color:#008080">)-</span>1<span style="color:#008080">]=</span>quotient</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># calcul de l&#x27;impôt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        i<span style="color:#008080">=</span>0</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">while</span> quotient<span style="color:#008080">&gt;</span>limites<span style="color:#008080">[</span>i<span style="color:#008080">]</span> <span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            i<span style="color:#008080">=</span>i<span style="color:#008080">+</span>1</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># du fait qu&#x27;on a placé quotient à la fin du tableau limites, la boucle précédente</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># ne peut déborder du tableau limites</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># maintenant on peut calculer l&#x27;impôt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> math<span style="color:#0000ff">.</span>floor<span style="color:#008080">(</span>revenuImposable<span style="color:#008080">*(</span>float<span style="color:#008080">)(</span>coeffR<span style="color:#008080">[</span>i<span style="color:#008080">])-</span>nbParts<span style="color:#008080">*(</span>float<span style="color:#008080">)(</span>coeffN<span style="color:#008080">[</span>i<span style="color:#008080">]))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
 </code></pre></div>
 
 <p>Notes:</p>
@@ -959,70 +1009,123 @@
 <a id="refheading93743200241464"></a></li>
 </ul>
 <h2 id="83-the-console-layer">8.3. <span style="color: #4f81bd">The [console] layer</span></h2>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000490000000D60CCF5A6A.png" style="display:inline-block; margin:4px;width:15.452cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/1000000000000490000000D60CCF5A6A.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000490000000D60CCF5A6A.png" width="584" height="107" style="display:inline-block; margin:4px;width:15.452cm;height:2.831cm;" class="odt-zoomable" data-zoom-src="images/1000000000000490000000D60CCF5A6A.png" /></td></tr></table>
 
 <p>The script implementing the [console] layer (impots-03) is as follows:</p>
-<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line"># -*- coding=utf-8 -*-</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># Import the Impots* class module</span>
-<span class="odt-code-line"><span style="color:#0000ff">from </span>impots <span style="color:#0000ff">import </span><span style="color:#008080">*</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># ------------------------------------------------ main</span>
-<span class="odt-code-line"># Define constants</span>
-<span class="odt-code-line"><span style="color:#008080">DATA=</span><span style="color:#a31515">&quot;data.txt&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">RESULTS=</span><span style="color:#a31515">&quot;results.txt&quot;</span></span>
-<span class="odt-code-line"><span style="color:#008080">TAXES=</span><span style="color:#a31515">&quot;taxes.txt&quot;</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># The data needed to calculate the tax has been placed in the TAXES file</span>
-<span class="odt-code-line"># with one line per table in the form</span>
-<span class="odt-code-line"># val1:val2:val3,...</span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># instantiation of the [business] layer</span>
-<span class="odt-code-line"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    business=TaxBusiness<span style="color:#008080">(</span>TaxFile<span style="color:#008080">(</span>IMPOTS<span style="color:#008080">))</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">except </span><span style="color:#008080">(</span>IOError<span style="color:#008080">, </span>ImpotsError<span style="color:#008080">) </span><span style="color:#0000ff">as </span>info<span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print</span><span style="color:#008080">(</span><span style="color:#a31515">&quot;An error occurred: {0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>infos<span style="color:#008080">))</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># read data</span>
-<span class="odt-code-line"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    data <span style="color:#008080">= </span>open<span style="color:#008080">(</span>DATA<span style="color:#008080">, </span><span style="color:#a31515">&quot;r&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">except</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;Unable to open the data file [DATA] for reading&quot;</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># Open the results file</span>
-<span class="odt-code-line"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span>
-<span class="odt-code-line">    <span style="color:#008080">results = </span>open<span style="color:#008080">(</span>RESULTS<span style="color:#008080">, </span><span style="color:#a31515">&quot;w&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">except</span><span style="color:#008080">:  </span></span>
-<span class="odt-code-line">    <span style="color:#0000ff">print </span><span style="color:#a31515">&quot;Unable to create the results file [RESULTS]&quot;</span></span>
-<span class="odt-code-line">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># utilities</span>
-<span class="odt-code-line"><span style="color:#008080">u = </span>Utilities<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-<span class="odt-code-line"># process the current line of the data file</span>
-<span class="odt-code-line"><span style="color:#008080">line = </span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span>
-<span class="odt-code-line"><span style="color:#0000ff">while</span><span style="color:#008080">(</span>line <span style="color:#008080">!= </span><span style="color:#a31515">&#x27;&#x27;</span><span style="color:#008080">):</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># remove any end-of-line characters</span></span>
-<span class="odt-code-line">    line<span style="color:#008080"> = </span>u<span style="color:#0000ff">.</span>cutNewLineChar<span style="color:#008080">(</span>line<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># We retrieve the three fields married:children:salary that make up the line</span></span>
-<span class="odt-code-line">    <span style="color:#008080">(</span>spouse<span style="color:#008080">, </span>children<span style="color:#008080">, </span>salary<span style="color:#008080">) </span>= row<span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&quot;,&quot;</span><span style="color:#008080">)</span></span>
-<span class="odt-code-line">    children<span style="color:#008080"> = </span>int<span style="color:#008080">(</span>children<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    salary<span style="color:#008080"> = int(</span>salary<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># calculate the tax</span></span>
-<span class="odt-code-line">    tax<span style="color:#008080"> = </span>job<span style="color:#0000ff">.</span>calculate<span style="color:#008080">(</span>spouse<span style="color:#008080">, </span>children<span style="color:#008080">, </span>salary<span style="color:#008080">)</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># print the result</span></span>
-<span class="odt-code-line">    results<span style="color:#0000ff">.</span>write<span style="color:#008080">(</span><span style="color:#a31515">&quot;{0}:{1}:{2}:{3}\n&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>spouse<span style="color:#008080">, </span>children<span style="color:#008080">, </span>salary<span style="color:#008080">, </span>tax<span style="color:#008080">))</span></span>
-<span class="odt-code-line">    <span style="color:#008000"># read a new line</span></span>
-<span class="odt-code-line">    <span style="color:#008080">line = </span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span>
-<span class="odt-code-line"># close the files</span>
-<span class="odt-code-line">data<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span>
-<span class="odt-code-line">results<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span>
-<span class="odt-code-line"></span>
-</code></pre></div>
-
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span>
+<span class="normal"><a href="#__codelineno-1-44">44</a></span>
+<span class="normal"><a href="#__codelineno-1-45">45</a></span>
+<span class="normal"><a href="#__codelineno-1-46">46</a></span>
+<span class="normal"><a href="#__codelineno-1-47">47</a></span>
+<span class="normal"><a href="#__codelineno-1-48">48</a></span>
+<span class="normal"><a href="#__codelineno-1-49">49</a></span>
+<span class="normal"><a href="#__codelineno-1-50">50</a></span>
+<span class="normal"><a href="#__codelineno-1-51">51</a></span>
+<span class="normal"><a href="#__codelineno-1-52">52</a></span>
+<span class="normal"><a href="#__codelineno-1-53">53</a></span>
+<span class="normal"><a href="#__codelineno-1-54">54</a></span>
+<span class="normal"><a href="#__codelineno-1-55">55</a></span>
+<span class="normal"><a href="#__codelineno-1-56">56</a></span>
+<span class="normal"><a href="#__codelineno-1-57">57</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">#    import of Impots* class module</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">impots</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1">#    ------------------------------------------------ main</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1">#    definition of constants</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">DATA</span><span class="o">=</span><span class="s2">&quot;data.txt&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="n">RESULTATS</span><span class="o">=</span><span class="s2">&quot;resultats.txt&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">IMPOTS</span><span class="o">=</span><span class="s2">&quot;impots.txt&quot;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c1">#  the data required to calculate the tax has been placed in the IMPOTS file</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="c1">#  one line per table in the form</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="c1">#    val1:val2:val3,...</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="c1">#    instantiation layer [metier]</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>    <span class="n">metier</span><span class="o">=</span><span class="n">ImpotsMetier</span><span class="p">(</span><span class="n">ImpotsFile</span><span class="p">(</span><span class="n">IMPOTS</span><span class="p">))</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="n">ImpotsError</span><span class="p">)</span> <span class="k">as</span> <span class="n">infos</span><span class="p">:</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Une erreur s&#39;est produite : </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">infos</span><span class="p">))</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="c1">#    reading data</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>    <span class="n">data</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="k">except</span><span class="p">:</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a>    <span class="nb">print</span> <span class="s2">&quot;Impossible d&#39;ouvrir en lecture le fichier des donnees [DATA]&quot;</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="c1">#    open results file</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a>    <span class="n">resultats</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">RESULTATS</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="k">except</span><span class="p">:</span>  
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a>    <span class="nb">print</span> <span class="s2">&quot;Impossible de creer le fichier des résultats [RESULTATS]&quot;</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="c1">#    utilities</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="n">u</span><span class="o">=</span><span class="n">Utilitaires</span><span class="p">()</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="c1">#  the current line of the data file is used</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="n">ligne</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="k">while</span><span class="p">(</span><span class="n">ligne</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>    <span class="c1">#  remove any end-of-line marker</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a>    <span class="n">ligne</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cutNewLineChar</span><span class="p">(</span><span class="n">ligne</span><span class="p">)</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a>    <span class="c1">#  we retrieve the 3 fields married:children:salary which form the line</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a>    <span class="p">(</span><span class="n">marie</span><span class="p">,</span><span class="n">enfants</span><span class="p">,</span><span class="n">salaire</span><span class="p">)</span><span class="o">=</span><span class="n">ligne</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a>    <span class="n">enfants</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">enfants</span><span class="p">)</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a>    <span class="n">salaire</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">salaire</span><span class="p">)</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a>    <span class="c1">#  tax calculation</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a>    <span class="n">impot</span><span class="o">=</span><span class="n">metier</span><span class="o">.</span><span class="n">calculer</span><span class="p">(</span><span class="n">marie</span><span class="p">,</span><span class="n">enfants</span><span class="p">,</span><span class="n">salaire</span><span class="p">)</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a>    <span class="c1">#  enter the result</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a>    <span class="n">resultats</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:</span><span class="si">{1}</span><span class="s2">:</span><span class="si">{2}</span><span class="s2">:</span><span class="si">{3}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">marie</span><span class="p">,</span><span class="n">enfants</span><span class="p">,</span><span class="n">salaire</span><span class="p">,</span><span class="n">impot</span><span class="p">))</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a>    <span class="c1">#  a new line is read</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a>    <span class="n">ligne</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="c1">#    close files</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="n">data</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="n">resultats</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
 <p>Notes:</p>
 <ul>
 <li>Line 4: We import all objects from the <em>impots.py</em> file, which contains the class definitions. Once this is done, we can use these objects as if they were in the same file as the script;</li>
@@ -1035,25 +1138,25 @@
 <h2 id="84-results">8.4. <span style="color: #4f81bd">Results</span></h2>
 <p>The same as those already obtained in the versions using arrays and files.</p>
 <p>The data file <em>impots.txt</em>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>0:0.05:0.1:0.15:0.2:0.25:0.3:0.35:0.4:0.45:0.5:0.55:0.6:0.65
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>0:631:1290.5:2072.5:3309.5:4900:6898.5:9316.5:12106:16754.5:23147.5:30710:39312:49062
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>0:0.05:0.1:0.15:0.2:0.25:0.3:0.35:0.4:0.45:0.5:0.55:0.6:0.65
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>0:631:1290.5:2072.5:3309.5:4900:6898.5:9316.5:12106:16754.5:23147.5:30710:39312:49062
 </code></pre></div>
 <p>The data file <em>data.txt</em>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>yes,2,200000
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>no,2,200000
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>yes,3,200000
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>no,3,200000
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>yes,5,50000
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>no,0,3000000
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>oui,2,200000
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>non,2,200000
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>oui,3,200000
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>non,3,200000
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>oui,5,50000
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>non,0,3000000
 </code></pre></div>
 <p>The <em>results.txt</em> file containing the results:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>yes:2:200000:22504.0
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>no:2:200000:33388.0
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>yes:3:200000:16400.0
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>no:3:200000:22504.0
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>yes:5:50000:0.0
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>no:0:3000000:1354938.0
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>oui:2:200000:22504.0
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>non:2:200000:33388.0
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>oui:3:200000:16400.0
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>non:3:200000:22504.0
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>oui:5:50000:0.0
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>non:0:3000000:1354938.0
 </code></pre></div>
 
 
@@ -1090,8 +1193,8 @@
     <div class="md-footer-meta__inner">
 
       <div>
-        <a href="https://tahe.developpez.com" target="_blank">
-          https://tahe.developpez.com
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
         </a>
         <br>
         This tutorial written by <strong>Serge Tahé</strong> is made available to the public under the terms of the
