@@ -57,6 +57,8 @@
     
       <link rel="stylesheet" href="stylesheets/focus.css">
     
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -453,14 +455,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation.html" class="md-nav__link">
+      <a href="application-exercise---impots.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Application Exercise – [Tax Calculation]
+    4. Application Exercise – [IMPOTS]
   
 
     
@@ -561,14 +563,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation-with-a-layered-architecture-.html" class="md-nav__link">
+      <a href="application-exercise---impots-with-layered-architecture.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    8. Application Exercise – [Tax Calculation] with a layered architecture 
+    8. Application Exercise - [IMPOTS] with layered architecture
   
 
     
@@ -588,14 +590,14 @@
   
   
     <li class="md-nav__item">
-      <a href="using-the-mysql-dbms.html" class="md-nav__link">
+      <a href="using-the-sgbd-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    9. Using the MySQL DBMS
+    9. Using the SGBD MySQL
   
 
     
@@ -615,14 +617,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-mysql.html" class="md-nav__link">
+      <a href="exercise-impots-with-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    10. Exercise [Tax Calculation] with MySQL
+    10. Exercise [IMPOTS] with MySQL
   
 
     
@@ -696,14 +698,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-a-web-service.html" class="md-nav__link">
+      <a href="exercise-impots-with-a-service-web.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    13. Exercise [Tax Calculation] with a Web Service
+    13. Exercise [IMPOTS] with a service WEB
   
 
     
@@ -723,14 +725,14 @@
   
   
     <li class="md-nav__item">
-      <a href="processing-xml-documents.html" class="md-nav__link">
+      <a href="processing-of-document-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    14. Processing XML Documents
+    14. Processing of document XML
   
 
     
@@ -750,14 +752,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-xml.html" class="md-nav__link">
+      <a href="exercise-impots-with-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    15. Exercise [Tax Calculation] with XML
+    15. Exercise [IMPOTS] with XML
   
 
     
@@ -787,41 +789,41 @@
 
 
 
-<p><a id="refheading382362423505"></a></p>
+<p><span id="refheading382362423505" name="refheading382362423505" class="odt-bookmark-anchor"></span></p>
 <h1 id="2-installing-a-python-interpreter">2. <span style="color: #365f91">Installing a Python interpreter</span></h1>
-<p><a id="refheading382382423505"></a></p>
+<p><span id="refheading382382423505" name="refheading382382423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="21-activepython">2.1. <span style="color: #4f81bd">ActivePython</span></h2>
-<p>The examples in this document have been tested with the <em>ActiveState</em> Python interpreter:</p>
+<p>The examples in this document have been tested with the Python interpreter from <em>ActiveState</em>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>http://www.activestate.com/activepython/downloads
 </code></pre></div>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000002A10000008FA232D76F.png" width="425" height="90" style="display:inline-block; margin:4px;width:11.255cm;height:2.392cm;" class="odt-zoomable" data-zoom-src="images/10000000000002A10000008FA232D76F.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000002A10000008FA232D76F.png" width="425" height="90" style="display:inline-block; margin:4px;width:11.255cm;height:2.392cm;" class="odt-zoomable" data-zoom-src="images/10000000000002A10000008FA232D76F.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
 <p>Notes:</p>
 <ul>
-<li>Do not download the 64-bit version of ActivePython. It does not allow the installation of the MySQLdb module, which is required later in this document.</li>
+<li>Do not download the 64-bit version of Active Python. It does not allow the installation of the MySQLdb module, which is required later in this document.</li>
 </ul>
 <p>Installing ActivePython creates the following directory structure:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000BB00000131D236D070.png" width="131" height="213" style="display:inline-block; margin:4px;width:3.461cm;height:5.644cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BB00000131D236D070.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000BB00000131D236D070.png" width="131" height="213" style="display:inline-block; margin:4px;width:3.461cm;height:5.644cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BB00000131D236D070.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
-<p>and the following menu in the Applications folder:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000002A100000105500A3695.png" width="337" height="131" style="display:inline-block; margin:4px;width:8.904cm;height:3.454cm;" class="odt-zoomable" data-zoom-src="images/10000000000002A100000105500A3695.png" /></td></tr></table>
+<p>and the following menu in the application tree:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000002A100000105500A3695.png" width="337" height="131" style="display:inline-block; margin:4px;width:8.904cm;height:3.454cm;" class="odt-zoomable" data-zoom-src="images/10000000000002A100000105500A3695.png" /></td></tr></table>
 
 <ul>
-<li>1: the ActivePython documentation. This is very comprehensive, and it’s a good idea to consult it whenever you encounter a problem;</li>
+<li>1: the ActivePython documentation. This is very comprehensive, and it is a good idea to consult it whenever you encounter a problem;</li>
 <li>2: an interactive Python interpreter;</li>
-<li>3: the ActivePython package manager. We will use this to install the Python package that allows us to work with MySQL databases.</li>
+<li>3: the Active Python package manager. We will use this to install the Python package that allows us to work with MySQL databases.</li>
 </ul>
-<p>We will not be using the interactive Python interpreter. You should simply be aware that the scripts in this document could be run using this interpreter. While it is useful for testing how a Python feature works, it is not very practical for scripts that need to be reused. Here is an example:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000021A000000D5E6ED26AC.png" width="376" height="149" style="display:inline-block; margin:4px;width:9.961cm;height:3.944cm;" class="odt-zoomable" data-zoom-src="images/100000000000021A000000D5E6ED26AC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<p>We will not use the interactive Python interpreter. It is simply important to know that the scripts in this document could be run using this interpreter. While it is useful for testing how a Python feature works, it is not very practical for scripts that need to be reused. Here is an example:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000021A000000D5E6ED26AC.png" width="376" height="149" style="display:inline-block; margin:4px;width:9.961cm;height:3.944cm;" class="odt-zoomable" data-zoom-src="images/100000000000021A000000D5E6ED26AC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
-<p>The &gt;&gt;&gt; prompt allows you to enter a Python statement that is executed immediately. The code typed above means the following:</p>
+<p>The &gt;&gt;&gt; prompt allows you to enter a Python statement that is executed immediately. The code typed above has the following meaning:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
 <span class="normal"><a href="#__codelineno-1-4">4</a></span>
 <span class="normal"><a href="#__codelineno-1-5">5</a></span>
 <span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>&gt;&gt;&gt; nom=&#39;python&#39;
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>&gt;&gt;&gt; print &#39;nom=%s&#39; % (nom)
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>&gt;&gt;&gt; print &#39;name=%s&#39; % (name)
 <a id="__codelineno-1-3" name="__codelineno-1-3"></a>nom=python
 <a id="__codelineno-1-4" name="__codelineno-1-4"></a>&gt;&gt;&gt; print &quot;type=%s&quot; % (type(nom))
 <a id="__codelineno-1-5" name="__codelineno-1-5"></a>type=&lt;type &#39;str&#39;&gt;
@@ -829,7 +831,7 @@
 </code></pre></div></td></tr></table></div>
 <p>Lines:</p>
 <ul>
-<li>1: Initialization of a variable. In Python, you do not declare the type of variables. They automatically take on the type of the value assigned to them. This type may change over time;</li>
+<li>1: initialization of a variable. In Python, you do not declare the type of variables. They automatically take on the type of the value assigned to them. This type may change over time;</li>
 <li>2: display of the name. &#x27;name=%s&#x27; is a display format where %s is a formal parameter denoting a string. (<em>name</em>) is the actual parameter that will be displayed in place of %s;</li>
 <li>3: the result of the display;</li>
 <li>4: display of the type of the variable <em>name;</em></li>
@@ -840,11 +842,11 @@
 <li>the script can be written using any text editor. Here we used <em>Notepad++,</em> which offers syntax highlighting for Python scripts;</li>
 <li>the script is run in a DOS window.</li>
 </ul>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000020B000001378A4D7510.png" width="327" height="194" style="display:inline-block; margin:4px;width:8.64cm;height:5.138cm;" class="odt-zoomable" data-zoom-src="images/100000000000020B000001378A4D7510.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000020B000001378A4D7510.png" width="327" height="194" style="display:inline-block; margin:4px;width:8.64cm;height:5.138cm;" class="odt-zoomable" data-zoom-src="images/100000000000020B000001378A4D7510.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
 <ul>
 <li>Navigate to the folder containing the script to be tested;</li>
-<li>The <strong>%python%</strong> variable is a system variable:</li>
+<li>the <strong>%python%</strong> variable is a system variable:</li>
 </ul>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>C:\data\travail\2010-2011\python\tutoriel&gt;echo %python%
@@ -852,40 +854,38 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>Line 1: displays the value of the <em>%python%</em> environment variable<em>;</em></li>
-<li>Line 2: its value: <em>&lt;installdir&gt;\python.exe,</em> where <em>installdir</em> is the ActivePython installation folder.</li>
+<li>line 2: its value: <em>&lt;installdir&gt;\python.exe</em> where <em>installdir</em> is the installation folder for ActivePython.</li>
 </ul>
-<p><a id="refheading382402423505"></a></p>
+<p><span id="refheading382402423505" name="refheading382402423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="22-python-tools-for-visual-studio">2.2. <span style="color: #4f81bd">Python Tools for Visual Studio</span></h2>
-<p>[Python Tools for Visual Studio] is available (February 2012) at the following URL: [<a href="http://pytools.codeplex.com/"><u><span style="color: #0563c1">http://pytools.codeplex.com/</span></u></a>]. Running it adds Python features to Visual Studio 2010. The Express version of Visual Studio 2010 is free and available at [<a href="http://www.microsoft.com/visualstudio/en-us/products/2010-editions/express"><u><span style="color: #0563c1">http://www.microsoft.com/visualstudio/en-us/products/2010-editions/express</span></u></a>].</p>
-<p>Once the [Python Tools for Visual Studio] extensions are installed, you can create Python projects with VS 2010:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005CB00000260EAE8732F.png" width="680" height="279" style="display:inline-block; margin:4px;width:17.997cm;height:7.378cm;" class="odt-zoomable" data-zoom-src="images/10000000000005CB00000260EAE8732F.png" /></td></tr></table>
+<p>[Python Tools for Visual Studio] is available (February 2012) at the following link: URL. Running it adds Python features to Visual Studio 2010. Visual Studio 2010 Express is free and available at URL [http://www.microsoft.com/visualstudio/en-us/products/2010-editions/express].</p>
+<p>Once the [Python Tools for Visual Studio] extensions are installed, you can create Python projects in Visual Studio 2010:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000005CB00000260EAE8732F.png" width="680" height="279" style="display:inline-block; margin:4px;width:17.997cm;height:7.378cm;" class="odt-zoomable" data-zoom-src="images/10000000000005CB00000260EAE8732F.png" /></td></tr></table>
 
 <ul>
-<li>for all examples in this document, option [1] is appropriate;</li>
+<li>for all examples in this document, the [1] option is appropriate;</li>
 <li>[2]: The menu (Tools / Options) allows you to configure the Python environment.</li>
 </ul>
-<p>The ActivePython interpreter should have been detected by Visual Studio [3]:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000063F00000238345A5727.png" width="680" height="242" style="display:inline-block; margin:4px;width:17.997cm;height:6.392cm;" class="odt-zoomable" data-zoom-src="images/100000000000063F00000238345A5727.png" /></td></tr></table>
+<p>The ActivePython interpreter must have been detected by Visual Studio [3]:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000063F00000238345A5727.png" width="680" height="242" style="display:inline-block; margin:4px;width:17.997cm;height:6.392cm;" class="odt-zoomable" data-zoom-src="images/100000000000063F00000238345A5727.png" /></td></tr></table>
 
 <ul>
-<li>in [4], we specify that program execution should pause until the user presses a key on the keyboard. </li>
+<li>In [4], we specify that the program execution should end with a pause that the user interrupts by pressing a key on the keyboard. </li>
 </ul>
 <p>Let’s create a Python project (File / New / Project):</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000005E7000002B247ABC3F1.png" width="680" height="311" style="display:inline-block; margin:4px;width:17.997cm;height:8.218cm;" class="odt-zoomable" data-zoom-src="images/10000000000005E7000002B247ABC3F1.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000005E7000002B247ABC3F1.png" width="680" height="311" style="display:inline-block; margin:4px;width:17.997cm;height:8.218cm;" class="odt-zoomable" data-zoom-src="images/10000000000005E7000002B247ABC3F1.png" /></td></tr></table>
 
 <ul>
 <li>in [1,2]: select a Python project of type [Python Application];</li>
 <li>in [3]: choose a folder for the project;</li>
-<li>in [4]: give the project a name;</li>
+<li>in [4]: name the project;</li>
 <li>in [5]: the generated project.</li>
 </ul>
 <p>The file [essai_02.py] is a Python program:</p>
-<div class="odt-code-rich" data-linenums="false" style="counter-reset: odtline 0;"><pre><code class="language-python">
-<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span><span style="color:#008080">(</span><span style="color:#a31515">&#x27;Hello World&#x27;</span><span style="color:#008080">)</span></span></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span>
 </code></pre></div>
-
-<p>Run it by pressing [Ctrl-F5]: the result appears in a DOS window [6]. All the code in this document has also been tested in this way. The examples are provided as a VS 2010 solution:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000BF0000012F10769FFC.png" width="134" height="212" style="display:inline-block; margin:4px;width:3.54cm;height:5.616cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BF0000012F10769FFC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<p>It is executed via [Ctrl-F5]: the result appears in a DOS window [6]. All the code in the document has also been tested in this way. The examples are provided in the form of a VS 2010 solution:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000BF0000012F10769FFC.png" width="134" height="212" style="display:inline-block; margin:4px;width:3.54cm;height:5.616cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BF0000012F10769FFC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
 
 

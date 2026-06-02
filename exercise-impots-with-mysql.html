@@ -1,0 +1,1189 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introduction to Python 2.7 Through Examples">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/en-python2.7-mars-2012/exercise-impots-with-mysql.html">
+      
+      
+        <link rel="prev" href="using-the-sgbd-mysql.html">
+      
+      
+        <link rel="next" href="python-network-functions.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>10. Exercise [IMPOTS] with MySQL - Introduction to Python 2.7 Through Examples</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introduction to Python 2.7 Through Examples";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-exercise-impots-with-mysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-header__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introduction to Python 2.7 Through Examples
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. Exercise [IMPOTS] with MySQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introduction to Python 2.7 Through Examples" class="md-nav__button md-logo" aria-label="Introduction to Python 2.7 Through Examples" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introduction to Python 2.7 Through Examples
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/en-python2.7-mars-2012" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="foreword.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Foreword
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installing-a-python-interpreter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installing a Python interpreter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="the-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. The Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---impots.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Application Exercise – [IMPOTS]
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="classes-and-objects.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Classes and Objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exceptions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="layered-architecture-and-interface-based-programming.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Layered architecture and interface-based programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="application-exercise---impots-with-layered-architecture.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Application Exercise - [IMPOTS] with layered architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="using-the-sgbd-mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Using the SGBD MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Exercise [IMPOTS] with MySQL
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="exercise-impots-with-mysql.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Exercise [IMPOTS] with MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#101-transferring-a-text-file-to-a-table-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. Transferring a text file to a table MySQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-the-tax-calculation-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. The tax calculation program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-the-impotsmysql-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. The [ImpotsMySQL] class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-the-console-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. The console script
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="python-network-functions.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Python network functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="web-services-in-python.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Web services in Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-impots-with-a-service-web.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Exercise [IMPOTS] with a service WEB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="processing-of-document-xml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Processing of document XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="exercise-impots-with-xml.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Exercise [IMPOTS] with XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><span id="refheading383102423505" name="refheading383102423505" class="odt-bookmark-anchor"></span>
+<span id="exo-impots-mysql" name="exo-impots-mysql" class="odt-bookmark-anchor"></span></p>
+<h1 id="10-exercise-impots-with-mysql">10. <span style="color: #365f91">Exercise [IMPOTS] with MySQL</span></h1>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000017A00000264ABA925B0.png" width="189" height="306" style="display:inline-block; margin:4px;width:5.001cm;height:8.096cm;" class="odt-zoomable" data-zoom-src="images/100000000000017A00000264ABA925B0.png" /></td></tr></table>
+
+<p><span id="refheading383122423505" name="refheading383122423505" class="odt-bookmark-anchor"></span></p>
+<h2 id="101-transferring-a-text-file-to-a-table-mysql">10.1. <span style="color: #4f81bd"><strong>Transferring a text file to a table MySQL</strong></span></h2>
+<p>The following script will transfer data from the following text file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>0:0.05:0.1:0.15:0.2:0.25:0.3:0.35:0.4:0.45:0.5:0.55:0.6:0.65
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>0:631:1290.5:272.5:3309.5:4900:6898.5:9316.5:12106:16754.5:23147.5:30710:39312:49062
+</code></pre></div>
+<p>in the [impots] table of the following database MySQL [dbimpots]:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000F60000016E62B20100.png" width="172" height="256" style="display:inline-block; margin:4px;width:4.56cm;height:6.784cm;" class="odt-zoomable" data-zoom-src="images/10000000000000F60000016E62B20100.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
+
+<p>The connection to the [dbimpots] database will be made using the credentials (root,&quot;&quot;).</p>
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
+<div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (impotstxt2mysql)</div>
+
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
+<p>We will use the following architecture:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000004980000017076A05157.png" width="588" height="184" style="display:inline-block; margin:4px;width:15.558cm;height:4.868cm;" class="odt-zoomable" data-zoom-src="images/10000000000004980000017076A05157.png" /></td></tr></table>
+
+<p>The [console] script we are going to write will use the [ImpotsFile] class to access the data in the text file. Write access to the database will be performed using the methods discussed previously.</p>
+<p>The script code is as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># import of Impots class module</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">from</span> impots <span style="color:#0000ff">import</span> <span style="color:#008080">*</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span> re</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># --------------------------------------------------------------------------</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">def</span> copyToMysql<span style="color:#008080">(</span>limites<span style="color:#008080">,</span>coeffR<span style="color:#008080">,</span>coeffN<span style="color:#008080">,</span>HOTE<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>TABLE<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # copy the 3 numerical limit tables, coeffR, coeffN</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # in table TABLE of database mysql BASE</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # base mysql is on machine HOTE</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # the user is identified by USER and PWD</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # put SQL queries in a list</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # table deletion</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    requetes<span style="color:#008080">=[</span><span style="color:#a31515">&quot;drop table %s&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>TABLE<span style="color:#008080">)]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # table creation</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    requete<span style="color:#008080">=</span><span style="color:#a31515">&quot;create table %s (limites decimal(10,2), coeffR decimal(6,2), coeffN decimal(10,2))&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>TABLE<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    requetes<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>requete<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # filling</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>limites<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # insertion request</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        requetes<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span><span style="color:#a31515">&quot;insert into %s (limites,coeffR,coeffN) values (%s,%s,%s)&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>TABLE<span style="color:#008080">,</span>limites<span style="color:#008080">[</span>i<span style="color:#008080">],</span>coeffR<span style="color:#008080">[</span>i<span style="color:#008080">],</span>coeffN<span style="color:#008080">[</span>i<span style="color:#008080">]))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # execute SQL commands</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">return</span> executerCommandes<span style="color:#008080">(</span>HOTE<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>requetes<span style="color:#008080">,</span>False<span style="color:#008080">,</span>False<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">def</span> executerCommandes<span style="color:#008080">(</span>HOTE<span style="color:#008080">,</span>ID<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>requetes<span style="color:#008080">,</span>suivi<span style="color:#008080">=</span>False<span style="color:#008080">,</span>arret<span style="color:#008080">=</span>True<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # uses connection (HOTE,ID,PWD,BASE)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # executes on this connection the SQL commands contained in the request list</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # if followed=True then each execution of a SQL order is displayed, indicating success or failure</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # if arret=False, the function stops on the 1st error encountered, otherwise it executes all sql commands</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # the function returns a list (no. of errors, error1, error2, ...)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # connection</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        connexion<span style="color:#008080">=</span>MySQLdb<span style="color:#0000ff">.</span>connect<span style="color:#008080">(</span>host<span style="color:#008080">=</span>HOTE<span style="color:#008080">,</span>user<span style="color:#008080">=</span>ID<span style="color:#008080">,</span>passwd<span style="color:#008080">=</span>PWD<span style="color:#008080">,</span>db<span style="color:#008080">=</span>BASE<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">except</span> MySQLdb<span style="color:#0000ff">.</span>OperationalError<span style="color:#008080">,</span>erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#008080">[</span>1<span style="color:#008080">,</span><span style="color:#a31515">&quot;Erreur lors de la connexion a MySQL sous l&#x27;identite (%s,%s,%s,%s) : %s&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>HOTE<span style="color:#008080">,</span> ID<span style="color:#008080">,</span> PWD<span style="color:#008080">,</span> BASE<span style="color:#008080">,</span> erreur<span style="color:#008080">)]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # a cursor is requested</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    curseur<span style="color:#008080">=</span>connexion<span style="color:#0000ff">.</span>cursor<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # execute SQL queries contained in the query list</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # we run them - initially no errors</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    erreurs<span style="color:#008080">=[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>requetes<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # put the query in a local variable</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        requete<span style="color:#008080">=</span>requetes<span style="color:#008080">[</span>i<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # do we have an empty query?</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*$&quot;</span><span style="color:#008080">,</span>requete<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">continue</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # query execution i</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        erreur<span style="color:#008080">=</span><span style="color:#a31515">&quot;&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            curseur<span style="color:#0000ff">.</span>execute<span style="color:#008080">(</span>requete<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">except</span> Exception<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">pass</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # was there a mistake?</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # one more mistake</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            erreurs<span style="color:#008080">[</span>0<span style="color:#008080">]+=</span>1</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # error msg</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            msg<span style="color:#008080">=</span><span style="color:#a31515">&quot;%s : Erreur (%s)&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>requete<span style="color:#008080">[</span>0<span style="color:#008080">:</span>len<span style="color:#008080">(</span>requete<span style="color:#008080">)-</span>1<span style="color:#008080">],</span>erreur<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            erreurs<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>msg<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # screen tracking or not?</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">if</span> suivi<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                <span style="color:#0000ff">print</span> msg</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # shall we stop?</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">if</span> arret<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                <span style="color:#0000ff">return</span> erreurs</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">if</span> suivi<span style="color:#008080">:</span> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                # the query is displayed without its end-of-line marker</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;%s : Execution reussie&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>cutNewLineChar<span style="color:#008080">(</span>requete<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                # information on the result of the query</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">                afficherInfos<span style="color:#008080">(</span>curseur<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # locking connection</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        connexion<span style="color:#0000ff">.</span>commit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        connexion<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">except</span> MySQLdb<span style="color:#0000ff">.</span>OperationalError<span style="color:#008080">,</span>erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # one more mistake</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        erreurs<span style="color:#008080">[</span>0<span style="color:#008080">]+=</span>1</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # error msg</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        msg<span style="color:#008080">=</span><span style="color:#a31515">&quot;%s : Erreur (%s)&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>requete<span style="color:#008080">,</span>erreur<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        erreurs<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>msg<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # return</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">return</span> erreurs</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ------------------------------------------------ main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># user identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">USER<span style="color:#008080">=</span><span style="color:#a31515">&quot;root&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">PWD<span style="color:#008080">=</span><span style="color:#a31515">&quot;&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># the sgbd host machine</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">HOTE<span style="color:#008080">=</span><span style="color:#a31515">&quot;localhost&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># base identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">BASE<span style="color:#008080">=</span><span style="color:#a31515">&quot;dbimpots&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># data table identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">TABLE<span style="color:#008080">=</span><span style="color:#a31515">&quot;impots&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># the data file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">IMPOTS<span style="color:#008080">=</span><span style="color:#a31515">&quot;impots.txt&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># instantiation layer [dao]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    dao<span style="color:#008080">=</span>ImpotsFile<span style="color:#008080">(</span>IMPOTS<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> <span style="color:#008080">(</span>IOError<span style="color:#008080">,</span> ImpotsError<span style="color:#008080">)</span> <span style="color:#0000ff">as</span> infos<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#008080">(</span><span style="color:#a31515">&quot;Une erreur s&#x27;est produite : {0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>infos<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># transfer the recovered data to a mysql table</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">erreurs<span style="color:#008080">=</span>copyToMysql<span style="color:#008080">(</span>dao<span style="color:#0000ff">.</span>limites<span style="color:#008080">,</span>dao<span style="color:#0000ff">.</span>coeffR<span style="color:#008080">,</span>dao<span style="color:#0000ff">.</span>coeffN<span style="color:#008080">,</span>HOTE<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>TABLE<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">if</span> erreurs<span style="color:#008080">[</span>0<span style="color:#008080">]:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>1<span style="color:#008080">,</span>len<span style="color:#008080">(</span>erreurs<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">print</span> erreurs<span style="color:#008080">[</span>i<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;Transfert opere&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># end</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ul>
+<li>lines 106–110: the [ImpotsFile] class presented in section<a href="application-exercise---impots-with-layered-architecture.html#impotsfile"><u><span style="color: #0563c1"> 8.1</span></u></a> is instantiated;</li>
+<li>line 113: the <em>limit</em> arrays, <em>coeffR</em> and <em>coeffN</em>, are transferred to a database named MySQL;</li>
+<li>Line 8: The function <em>copyToMysql</em> performs this transfer. The function <em>copyToMysql</em> creates an array of requests to be executed and has them executed by the function <em>executerCommandes</em>, line 25;</li>
+<li>Lines 28–89:   The function <em>executerCommandes</em> is the one already presented earlier in section<a href="#executercommandes"><u><span style="color: #0563c1"> 9.7</span></u></a>, with one difference: instead of being in a text file, the queries are in a list;</li>
+</ul>
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
+<div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
+
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
+<p>The text file <em>impots.txt</em>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>12620:13190:15640:24740:31810:39970:48360:55790:92970:127860:151250:172040:195000:0
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>0:0.05:0.1:0.15:0.2:0.25:0.3:0.35:0.4:0.45:0.5:0.55:0.6:0.65
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>0:631:1290.5:272.5:3309.5:4900:6898.5:9316.5:12106:16754.5:23147.5:30710:39312:49062
+</code></pre></div>
+<p>Screen results:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Transfert opéré
+</code></pre></div>
+<p>Verification with phpMyAdmin:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000F60000016E62B20100.png" width="172" height="256" style="display:inline-block; margin:4px;width:4.56cm;height:6.784cm;" class="odt-zoomable" data-zoom-src="images/10000000000000F60000016E62B20100.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
+
+<p><span id="refheading383142423505" name="refheading383142423505" class="odt-bookmark-anchor"></span></p>
+<h2 id="102-the-tax-calculation-program">10.2. <span style="color: #4f81bd">The tax calculation program</span></h2>
+<p>Now that the data needed for tax calculation is in a database, we can write the tax calculation script. We are again using a three-tier architecture:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000004A2000000EC57FC3312.png" width="593" height="118" style="display:inline-block; margin:4px;width:15.69cm;height:3.122cm;" class="odt-zoomable" data-zoom-src="images/10000000000004A2000000EC57FC3312.png" /></td></tr></table>
+
+<p>The new layer [dao] will be connected to SGBD and MySQL and will be implemented by the class [ImpotsMySQL]. It will provide the [metier] layer with the same interface as before, consisting of the single method <em>getData,</em> which returns the tuple (<em>limits, coeffR, coeffN</em>). Thus, the [metier] layer will not change compared to the previous version.</p>
+<p><span id="refheading378801855283005" name="refheading378801855283005" class="odt-bookmark-anchor"></span></p>
+<h2 id="103-the-impotsmysql-class">10.3. <span style="color: #4f81bd"><strong>The [ImpotsMySQL] class</strong></span></h2>
+<p>The [dao] layer is now implemented by the following [ImpotsMySQL] class (file impots.py):</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> ImpotsMySQL<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # manufacturer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>HOTE<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>TABLE<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># initialise les attributs limites, coeffR, coeffN</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # the data required to calculate the tax has been placed in table mysqL TABLE</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # belonging to the BASE database. The table has the following structure</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # limits decimal(10,2), coeffR decimal(10,2), coeffN decimal(10,2)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # connection to the mysql database on the HOTE machine is made under the identity (USER,PWD)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # throws an exception if an error occurs</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # connection to the mysql database</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        connexion<span style="color:#008080">=</span>MySQLdb<span style="color:#0000ff">.</span>connect<span style="color:#008080">(</span>host<span style="color:#008080">=</span>HOTE<span style="color:#008080">,</span>user<span style="color:#008080">=</span>USER<span style="color:#008080">,</span>passwd<span style="color:#008080">=</span>PWD<span style="color:#008080">,</span>db<span style="color:#008080">=</span>BASE<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # a cursor is requested</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        curseur<span style="color:#008080">=</span>connexion<span style="color:#0000ff">.</span>cursor<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # block reading of table TABLE</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        requete<span style="color:#008080">=</span><span style="color:#a31515">&quot;select limites,coeffR,coeffN from %s&quot;</span> <span style="color:#008080">%</span> <span style="color:#008080">(</span>TABLE<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # executes the query [requete] on the base [base] of the connection [connexion]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        curseur<span style="color:#0000ff">.</span>execute<span style="color:#008080">(</span>requete<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # query result evaluation</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        ligne<span style="color:#008080">=</span>curseur<span style="color:#0000ff">.</span>fetchone<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>limites<span style="color:#008080">=[]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>coeffR<span style="color:#008080">=[]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>coeffN<span style="color:#008080">=[]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">while</span><span style="color:#008080">(</span>ligne<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # current line</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>limites<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>ligne<span style="color:#008080">[</span>0<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>coeffR<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>ligne<span style="color:#008080">[</span>1<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>coeffN<span style="color:#0000ff">.</span>append<span style="color:#008080">(</span>ligne<span style="color:#008080">[</span>2<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # next line</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            ligne<span style="color:#008080">=</span>curseur<span style="color:#0000ff">.</span>fetchone<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # disconnect</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        connexion<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> getData<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>limites<span style="color:#008080">,</span> self<span style="color:#0000ff">.</span>coeffR<span style="color:#008080">,</span> self<span style="color:#0000ff">.</span>coeffN<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ul>
+<li>Line 18: The query SQL SELECT retrieves data from the database MySQL. The result rows from SELECT are then processed one by one by [curseur.fetchone] (lines 22 and 32) to create the <em>limit</em> tables, <em>coeffR</em>, <em>coeffN</em> (lines 28–30);</li>
+<li>the <em>getData</em> method of the [dao] layer interface.
+<span id="refheading378821855283005" name="refheading378821855283005" class="odt-bookmark-anchor"></span></li>
+</ul>
+<h2 id="104-the-console-script">10.4. <span style="color: #4f81bd">The console script</span></h2>
+<p>The console script code (impots_04) is as follows:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># import of Impots* class module</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">from</span> impots <span style="color:#0000ff">import</span> <span style="color:#008080">*</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ------------------------------------------------ main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># user identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">USER<span style="color:#008080">=</span><span style="color:#a31515">&quot;root&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">PWD<span style="color:#008080">=</span><span style="color:#a31515">&quot;&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># the sgbd host machine</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">HOTE<span style="color:#008080">=</span><span style="color:#a31515">&quot;localhost&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># base identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">BASE<span style="color:#008080">=</span><span style="color:#a31515">&quot;dbimpots&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># data table identity</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">TABLE<span style="color:#008080">=</span><span style="color:#a31515">&quot;impots&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># input file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">DATA<span style="color:#008080">=</span><span style="color:#a31515">&quot;data.txt&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># output file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">RESULTATS<span style="color:#008080">=</span><span style="color:#a31515">&quot;resultats.txt&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># instantiation layer [metier]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    metier<span style="color:#008080">=</span>ImpotsMetier<span style="color:#008080">(</span>ImpotsMySQL<span style="color:#008080">(</span>HOTE<span style="color:#008080">,</span>USER<span style="color:#008080">,</span>PWD<span style="color:#008080">,</span>BASE<span style="color:#008080">,</span>TABLE<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> <span style="color:#008080">(</span>IOError<span style="color:#008080">,</span> ImpotsError<span style="color:#008080">)</span> <span style="color:#0000ff">as</span> infos<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#008080">(</span><span style="color:#a31515">&quot;Une erreur s&#x27;est produite : {0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>infos<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># the data required to calculate the tax has been placed in the IMPOTS file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># one line per table in the form</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># val1:val2:val3,...</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># reading data</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    data<span style="color:#008080">=</span>open<span style="color:#008080">(</span>DATA<span style="color:#008080">,</span><span style="color:#a31515">&quot;r&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;Impossible d&#x27;ouvrir en lecture le fichier des donnees [DATA]&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># open results file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    resultats<span style="color:#008080">=</span>open<span style="color:#008080">(</span>RESULTATS<span style="color:#008080">,</span><span style="color:#a31515">&quot;w&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span><span style="color:#008080">:</span>  </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;Impossible de creer le fichier des résultats [RESULTATS]&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    sys<span style="color:#0000ff">.</span>exit<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># utilities</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">u<span style="color:#008080">=</span>Utilitaires<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># use the current line of the data file</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">ligne<span style="color:#008080">=</span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">while</span><span style="color:#008080">(</span>ligne <span style="color:#008080">!=</span> <span style="color:#a31515">&#x27;&#x27;</span><span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # remove any end-of-line marker</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    ligne<span style="color:#008080">=</span>u<span style="color:#0000ff">.</span>cutNewLineChar<span style="color:#008080">(</span>ligne<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # we retrieve the 3 fields married:children:salary which form the line</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008080">(</span>marie<span style="color:#008080">,</span>enfants<span style="color:#008080">,</span>salaire<span style="color:#008080">)=</span>ligne<span style="color:#0000ff">.</span>split<span style="color:#008080">(</span><span style="color:#a31515">&quot;,&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    enfants<span style="color:#008080">=</span>int<span style="color:#008080">(</span>enfants<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    salaire<span style="color:#008080">=</span>int<span style="color:#008080">(</span>salaire<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # tax calculation</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    impot<span style="color:#008080">=</span>metier<span style="color:#0000ff">.</span>calculer<span style="color:#008080">(</span>marie<span style="color:#008080">,</span>enfants<span style="color:#008080">,</span>salaire<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # enter the result</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    resultats<span style="color:#0000ff">.</span>write<span style="color:#008080">(</span><span style="color:#a31515">&quot;{0}:{1}:{2}:{3}\n&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>marie<span style="color:#008080">,</span>enfants<span style="color:#008080">,</span>salaire<span style="color:#008080">,</span>impot<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # a new line is read</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    ligne<span style="color:#008080">=</span>data<span style="color:#0000ff">.</span>readline<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># close files</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">data<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">resultats<span style="color:#0000ff">.</span>close<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ul>
+<li>Line 23: instantiation of layers [dao] and [metier];</li>
+<li>the rest of the code is familiar.</li>
+</ul>
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
+<div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
+
+<hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
+<p>The same as with previous versions of the exercise.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        This tutorial written by <strong>Serge Tahé</strong> is made available to the public under the terms of the
+<em>Creative Commons Attribution – Non-Commercial –
+ShareAlike 3.0 Unported</em>.
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

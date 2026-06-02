@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://stahe.github.io/en-python2.7-mars-2012/classes-and-objects.html">
       
       
-        <link rel="prev" href="application-exercise---tax-calculation.html">
+        <link rel="prev" href="application-exercise---impots.html">
       
       
         <link rel="next" href="exceptions.html">
@@ -56,6 +56,8 @@
     
     
       <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -384,14 +386,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation.html" class="md-nav__link">
+      <a href="application-exercise---impots.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Application Exercise – [Tax Calculation]
+    4. Application Exercise – [IMPOTS]
   
 
     
@@ -627,14 +629,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation-with-a-layered-architecture-.html" class="md-nav__link">
+      <a href="application-exercise---impots-with-layered-architecture.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    8. Application Exercise – [Tax Calculation] with a layered architecture 
+    8. Application Exercise - [IMPOTS] with layered architecture
   
 
     
@@ -654,14 +656,14 @@
   
   
     <li class="md-nav__item">
-      <a href="using-the-mysql-dbms.html" class="md-nav__link">
+      <a href="using-the-sgbd-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    9. Using the MySQL DBMS
+    9. Using the SGBD MySQL
   
 
     
@@ -681,14 +683,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-mysql.html" class="md-nav__link">
+      <a href="exercise-impots-with-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    10. Exercise [Tax Calculation] with MySQL
+    10. Exercise [IMPOTS] with MySQL
   
 
     
@@ -762,14 +764,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-a-web-service.html" class="md-nav__link">
+      <a href="exercise-impots-with-a-service-web.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    13. Exercise [Tax Calculation] with a Web Service
+    13. Exercise [IMPOTS] with a service WEB
   
 
     
@@ -789,14 +791,14 @@
   
   
     <li class="md-nav__item">
-      <a href="processing-xml-documents.html" class="md-nav__link">
+      <a href="processing-of-document-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    14. Processing XML Documents
+    14. Processing of document XML
   
 
     
@@ -816,14 +818,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-xml.html" class="md-nav__link">
+      <a href="exercise-impots-with-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    15. Exercise [Tax Calculation] with XML
+    15. Exercise [IMPOTS] with XML
   
 
     
@@ -853,62 +855,43 @@
 
 
 
-<p><a id="refheading382742423505"></a></p>
+<p><span id="refheading382742423505" name="refheading382742423505" class="odt-bookmark-anchor"></span></p>
 <h1 id="5-classes-and-objects">5. <span style="color: #365f91">Classes and Objects</span></h1>
 <p>A <strong>class</strong> is the template from which <strong>objects</strong> are created. An object is said to be <strong>an instance</strong> of a class.</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000B50000017D94275938.png" width="127" height="267" style="display:inline-block; margin:4px;width:3.35cm;height:7.052cm;" class="odt-zoomable" data-zoom-src="images/10000000000000B50000017D94275938.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000B50000017D94275938.png" width="127" height="267" style="display:inline-block; margin:4px;width:3.35cm;height:7.052cm;" class="odt-zoomable" data-zoom-src="images/10000000000000B50000017D94275938.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
-<p><a id="refheading382762423505"></a></p>
+<p><span id="refheading382762423505" name="refheading382762423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="51-an-object-class">5.1. <span style="color: #4f81bd">An Object Class</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_01)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span>
-<span class="normal"><a href="#__codelineno-0-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">#   -*- coding=utf-8 -*-</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Objet</span><span class="p">:</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;une classe Objet vide&quot;&quot;&quot;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">#   any variable can have attributes by construction</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">obj1</span><span class="o">=</span><span class="n">Objet</span><span class="p">()</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="n">obj1</span><span class="o">.</span><span class="n">attr1</span><span class="o">=</span><span class="s2">&quot;un&quot;</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="n">obj1</span><span class="o">.</span><span class="n">attr2</span><span class="o">=</span><span class="mi">100</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="c1">#  displays the</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="nb">print</span> <span class="s2">&quot;objet1=[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr1</span><span class="p">,</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr2</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="c1">#   modify object</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="n">obj1</span><span class="o">.</span><span class="n">attr2</span><span class="o">+=</span><span class="mi">100</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="c1">#  displays the</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="nb">print</span> <span class="s2">&quot;objet1=[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr1</span><span class="p">,</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr2</span><span class="p">)</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="c1">#   assigns object1 reference to object2</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="n">obj2</span><span class="o">=</span><span class="n">obj1</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="c1">#   modify obj2</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="n">obj2</span><span class="o">.</span><span class="n">attr2</span><span class="o">=</span><span class="mi">0</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="c1">#   displays both objects</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="nb">print</span> <span class="s2">&quot;objet1=[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr1</span><span class="p">,</span><span class="n">obj1</span><span class="o">.</span><span class="n">attr2</span><span class="p">)</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="nb">print</span> <span class="s2">&quot;objet2=[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj2</span><span class="o">.</span><span class="n">attr1</span><span class="p">,</span><span class="n">obj2</span><span class="o">.</span><span class="n">attr2</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Objet<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#a31515">&quot;&quot;&quot;une classe Objet vide&quot;&quot;&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># any variable can have attributes by construction</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj1<span style="color:#008080">=O</span>bjet<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj1<span style="color:#0000ff">.</span>attr1<span style="color:#008080">=</span><span style="color:#a31515">&quot;un&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj1<span style="color:#0000ff">.</span>attr2<span style="color:#008080">=</span>100</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># displays the</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;objet1=[{0},{1}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>obj1<span style="color:#0000ff">.</span>attr1<span style="color:#008080">,</span>obj1<span style="color:#0000ff">.</span>attr2<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># modify object</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj1<span style="color:#0000ff">.</span>attr2<span style="color:#008080">+=</span>100</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># displays the</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;objet1=[{0},{1}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>obj1<span style="color:#0000ff">.</span>attr1<span style="color:#008080">,</span>obj1<span style="color:#0000ff">.</span>attr2<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># assigns object1 reference to object2</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj2<span style="color:#008080">=</span>obj1</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># modify obj2</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">obj2<span style="color:#0000ff">.</span>attr2<span style="color:#008080">=</span>0</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># displays both objects</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;objet1=[{0},{1}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>obj1<span style="color:#0000ff">.</span>attr1<span style="color:#008080">,</span>obj1<span style="color:#0000ff">.</span>attr2<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;objet2=[{0},{1}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>obj2<span style="color:#0000ff">.</span>attr1<span style="color:#008080">,</span>obj2<span style="color:#0000ff">.</span>attr2<span style="color:#008080">)</span></span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
 <li>line 4: another form of comment. Preceded by three &quot;&quot;, it can span multiple lines;</li>
@@ -921,444 +904,296 @@
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>objet1=[un,100]
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>objet1=[un,200]
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>objet1=[un,0]
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>objet2=[un,0]
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>objet1=[un,100]
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>objet1=[un,200]
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>objet1=[un,0]
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>objet2=[un,0]
 </code></pre></div></td></tr></table></div>
-<p><a id="refheading382782423505"></a></p>
-<h2 id="52-a-person-class">5.2. <span style="color: #4f81bd"><strong>A Person class</strong></span></h2>
+<p><span id="refheading382782423505" name="refheading382782423505" class="odt-bookmark-anchor"></span></p>
+<h2 id="52-a-person-class">5.2. <span style="color: #4f81bd">A Person class</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_02)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="c1">#    class attributes</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="c1">#    undeclared - can be created dynamically</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a>    <span class="c1">#    method</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">identite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>        <span class="c1">#    a priori, uses non-existent attributes</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="c1">#    ---------------------------------- main</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="c1">#  attributes are public and can be created dynamically</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="n">p</span><span class="o">=</span><span class="n">Personne</span><span class="p">()</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="n">p</span><span class="o">.</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;Paul&quot;</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="n">p</span><span class="o">.</span><span class="n">nom</span><span class="o">=</span><span class="s2">&quot;Langevin&quot;</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="o">=</span><span class="mi">48</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="c1">#    method call</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">identite</span><span class="p">())</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # class attributes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # undeclared - can be created dynamically</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # method</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> identite<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # a priori, uses non-existent attributes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># attributes are public and can be created dynamically</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p<span style="color:#008080">=</span>Personne<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p<span style="color:#0000ff">.</span>prenom<span style="color:#008080">=</span><span style="color:#a31515">&quot;Paul&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p<span style="color:#0000ff">.</span>nom<span style="color:#008080">=</span><span style="color:#a31515">&quot;Langevin&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p<span style="color:#0000ff">.</span>age<span style="color:#008080">=</span>48</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># method call</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}\n&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p<span style="color:#0000ff">.</span>identite<span style="color:#008080">())</span></span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
-<li>lines 3-10: a class with a method;</li>
-<li>Line 8: Every method in a class must have the <em><code>self</code></em> object—which refers to the current object—as its first parameter.</li>
+<li>lines 3–10: a class with a method;</li>
+<li>line 8: every method in a class must have the <em><code>self</code></em> object, which refers to the current object, as its first parameter.</li>
 </ul>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>personne=[Paul,Langevin,48]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>personne=[Paul,Langevin,48]
 </code></pre></div>
-<p><a id="refheading382802423505"></a></p>
+<p><span id="refheading382802423505" name="refheading382802423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="53-the-person-class-with-a-constructor">5.3. <span style="color: #4f81bd">The Person class with a constructor</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_03)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1">#   -*- coding=utf-8 -*-</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a>    <span class="c1">#   manufacturer</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="p">,</span><span class="n">nom</span><span class="p">,</span><span class="n">age</span><span class="p">):</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="o">=</span><span class="n">prenom</span><span class="p">;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="o">=</span><span class="n">nom</span><span class="p">;</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">;</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a>    <span class="c1">#   method</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">identite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a>        <span class="c1">#   a priori, uses non-existent attributes</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="c1">#   ---------------------------------- main</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="c1">#   a Person object</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="n">p</span><span class="o">=</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Paul&quot;</span><span class="p">,</span><span class="s2">&quot;Langevin&quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">)</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="c1">#   method call</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">identite</span><span class="p">())</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # manufacturer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">,</span>nom<span style="color:#008080">,</span>age<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">=</span>prenom<span style="color:#008080">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>nom<span style="color:#008080">=</span>nom<span style="color:#008080">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>age<span style="color:#008080">=</span>age<span style="color:#008080">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # method</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> identite<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # a priori, uses non-existent attributes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># a Person object</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p<span style="color:#008080">=</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;Paul&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Langevin&quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># method call</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}\n&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p<span style="color:#0000ff">.</span>identite<span style="color:#008080">())</span></span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
-<li>line 6: the class constructor is called <strong>__init__</strong>. As with other methods, its first parameter is <strong>self;</strong></li>
-<li>line 18: A <em>Person</em> object is created using the class constructor.</li>
+<li>line 6: the class constructor is called <strong>__init__</strong>. As with the other methods, its first parameter is <strong>self;</strong></li>
+<li>line 18: a <em>Person</em> object is created using the class constructor.</li>
 </ul>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>personne=[Paul,Langevin,48]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>personne=[Paul,Langevin,48]
 </code></pre></div>
-<p><a id="refheading382822423505"></a></p>
+<p><span id="refheading382822423505" name="refheading382822423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="54-the-person-class-with-validity-checks-in-the-constructor">5.4. <span style="color: #4f81bd">The Person class with validity checks in the constructor</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_04)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span>
-<span class="normal"><a href="#__codelineno-6-20">20</a></span>
-<span class="normal"><a href="#__codelineno-6-21">21</a></span>
-<span class="normal"><a href="#__codelineno-6-22">22</a></span>
-<span class="normal"><a href="#__codelineno-6-23">23</a></span>
-<span class="normal"><a href="#__codelineno-6-24">24</a></span>
-<span class="normal"><a href="#__codelineno-6-25">25</a></span>
-<span class="normal"><a href="#__codelineno-6-26">26</a></span>
-<span class="normal"><a href="#__codelineno-6-27">27</a></span>
-<span class="normal"><a href="#__codelineno-6-28">28</a></span>
-<span class="normal"><a href="#__codelineno-6-29">29</a></span>
-<span class="normal"><a href="#__codelineno-6-30">30</a></span>
-<span class="normal"><a href="#__codelineno-6-31">31</a></span>
-<span class="normal"><a href="#__codelineno-6-32">32</a></span>
-<span class="normal"><a href="#__codelineno-6-33">33</a></span>
-<span class="normal"><a href="#__codelineno-6-34">34</a></span>
-<span class="normal"><a href="#__codelineno-6-35">35</a></span>
-<span class="normal"><a href="#__codelineno-6-36">36</a></span>
-<span class="normal"><a href="#__codelineno-6-37">37</a></span>
-<span class="normal"><a href="#__codelineno-6-38">38</a></span>
-<span class="normal"><a href="#__codelineno-6-39">39</a></span>
-<span class="normal"><a href="#__codelineno-6-40">40</a></span>
-<span class="normal"><a href="#__codelineno-6-41">41</a></span>
-<span class="normal"><a href="#__codelineno-6-42">42</a></span>
-<span class="normal"><a href="#__codelineno-6-43">43</a></span>
-<span class="normal"><a href="#__codelineno-6-44">44</a></span>
-<span class="normal"><a href="#__codelineno-6-45">45</a></span>
-<span class="normal"><a href="#__codelineno-6-46">46</a></span>
-<span class="normal"><a href="#__codelineno-6-47">47</a></span>
-<span class="normal"><a href="#__codelineno-6-48">48</a></span>
-<span class="normal"><a href="#__codelineno-6-49">49</a></span>
-<span class="normal"><a href="#__codelineno-6-50">50</a></span>
-<span class="normal"><a href="#__codelineno-6-51">51</a></span>
-<span class="normal"><a href="#__codelineno-6-52">52</a></span>
-<span class="normal"><a href="#__codelineno-6-53">53</a></span>
-<span class="normal"><a href="#__codelineno-6-54">54</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="c1"># -------------------</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="c1">#    a proprietary exception class</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>    <span class="k">pass</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11"></a>
-<a id="__codelineno-6-12" name="__codelineno-6-12"></a>    <span class="c1">#    manufacturer</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">nom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14"></a>         <span class="c1">#  first name must be non-empty</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\S+)\s*$&quot;</span><span class="p">,</span><span class="n">prenom</span><span class="p">)</span>
-<a id="__codelineno-6-16" name="__codelineno-6-16"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;Le prenom ne peut etre vide&quot;</span><span class="p">)</span>
-<a id="__codelineno-6-18" name="__codelineno-6-18"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-6-19" name="__codelineno-6-19"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-6-20" name="__codelineno-6-20"></a>        <span class="c1">#  name must be non-empty</span>
-<a id="__codelineno-6-21" name="__codelineno-6-21"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\S+)\s*$&quot;</span><span class="p">,</span><span class="n">nom</span><span class="p">)</span>
-<a id="__codelineno-6-22" name="__codelineno-6-22"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-6-23" name="__codelineno-6-23"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;Le nom ne peut etre vide&quot;</span><span class="p">)</span>
-<a id="__codelineno-6-24" name="__codelineno-6-24"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-6-25" name="__codelineno-6-25"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-6-26" name="__codelineno-6-26"></a>        <span class="c1">#  age must be valid</span>
-<a id="__codelineno-6-27" name="__codelineno-6-27"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\d+)\s*$&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">))</span>
-<a id="__codelineno-6-28" name="__codelineno-6-28"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-6-29" name="__codelineno-6-29"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;l&#39;age doit etre un entier positif&quot;</span><span class="p">)</span>
-<a id="__codelineno-6-30" name="__codelineno-6-30"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-6-31" name="__codelineno-6-31"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-6-32" name="__codelineno-6-32"></a>
-<a id="__codelineno-6-33" name="__codelineno-6-33"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-6-34" name="__codelineno-6-34"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-6-35" name="__codelineno-6-35"></a>
-<a id="__codelineno-6-36" name="__codelineno-6-36"></a><span class="c1">#    ---------------------------------- main</span>
-<a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="c1">#    a Person object</span>
-<a id="__codelineno-6-38" name="__codelineno-6-38"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-6-39" name="__codelineno-6-39"></a>    <span class="n">p</span><span class="o">=</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;  Paul  &quot;</span><span class="p">,</span><span class="s2">&quot;  Langevin  &quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">)</span>
-<a id="__codelineno-6-40" name="__codelineno-6-40"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<a id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-6-42" name="__codelineno-6-42"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-<a id="__codelineno-6-43" name="__codelineno-6-43"></a><span class="c1">#    another object Nobody</span>
-<a id="__codelineno-6-44" name="__codelineno-6-44"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-6-45" name="__codelineno-6-45"></a>    <span class="n">p</span><span class="o">=</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;  xx  &quot;</span><span class="p">,</span><span class="s2">&quot;  yy  &quot;</span><span class="p">,</span><span class="s2">&quot;  zz&quot;</span><span class="p">)</span>
-<a id="__codelineno-6-46" name="__codelineno-6-46"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<a id="__codelineno-6-47" name="__codelineno-6-47"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-6-48" name="__codelineno-6-48"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-<a id="__codelineno-6-49" name="__codelineno-6-49"></a><span class="c1">#    another person</span>
-<a id="__codelineno-6-50" name="__codelineno-6-50"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-6-51" name="__codelineno-6-51"></a>    <span class="n">p</span><span class="o">=</span><span class="n">Personne</span><span class="p">()</span>
-<a id="__codelineno-6-52" name="__codelineno-6-52"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<a id="__codelineno-6-53" name="__codelineno-6-53"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-6-54" name="__codelineno-6-54"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span> re</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># -------------------</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># a proprietary exception class</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> MyError<span style="color:#008080">(</span>Exception<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">pass</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # manufacturer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>age<span style="color:#008080">=</span>0<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">         # first name must be non-empty</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\S+)\s*$&quot;</span><span style="color:#008080">,</span>prenom<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;Le prenom ne peut etre vide&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # name must be non-empty</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\S+)\s*$&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;Le nom ne peut etre vide&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>nom<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # age must be valid</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\d+)\s*$&quot;</span><span style="color:#008080">,</span>str<span style="color:#008080">(</span>age<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;l&#x27;age doit etre un entier positif&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>age<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># a Person object</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p<span style="color:#008080">=</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;  Paul  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  Langevin  &quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># another object Nobody</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p<span style="color:#008080">=</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;  xx  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  yy  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  zz&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># another person</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p<span style="color:#008080">=</span>Personne<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
-<li>lines 7-8: a <em>MyError</em> class derived from the <em>Exception</em> class. It adds no functionality to the latter. It is only there to provide a custom exception;</li>
+<li>lines 7-8: a class <em>MyError</em> derived from the <em>Exception</em> class. It adds no functionality to the latter. It is only there to provide a custom exception;</li>
 <li>Line 13: The constructor has default values for its parameters. Thus, the operation <em>p = Person()</em> is equivalent to <em>p = Person(&quot;x&quot;, &quot;x&quot;, 0);</em></li>
-<li>Lines 15–9: The <em>first_name</em> parameter is checked. It must not be empty. If it is, the <em>MyError</em> exception is thrown with an error message;</li>
-<li>Lines 21–25: Same for the last_name;</li>
-<li>lines 27–31: age verification;</li>
-<li>lines 33-34: the <em>__str__</em> function replaces the method previously called <em>identite</em>;</li>
-<li>lines 38–42: instantiate a Person and display its identity;</li>
+<li>lines 15–9: The <em>first_name</em> parameter is checked. It must not be empty. If it is, the exception <em>MyError</em> is thrown with an error message;</li>
+<li>lines 21–25: same for the last_name;</li>
+<li>lines 27-31: age verification;</li>
+<li>lines 33-34: the function <em>__str__</em> replaces the method previously called <em>identite</em>;</li>
+<li>lines 38-42: instantiation of a person, then display of their identity;</li>
 <li>line 39: instantiation;</li>
-<li>line 40: display. The operation requires displaying the person <em>p</em> as a string. The Python interpreter then automatically calls the method <em>p.__str__()</em> if it exists. This method serves the same purpose as the <em>toString()</em> method in Java or .NET languages;</li>
-<li>lines 41–42: handling of a potential <em>MyError</em> exception. Then displays the error message associated with the exception;</li>
-<li>lines 44–48: same as above for a second instance of Person created with incorrect parameters;</li>
-<li>lines 50–54: same as above for a third person instantiated with default parameters.</li>
+<li>line 40: display. The operation requests that the person <em>p</em> be displayed as a string. The Python interpreter then automatically calls the <em>p.__str__()</em> method if it exists. This method serves the same purpose as the <em>toString()</em> method in Java or in .NET languages;</li>
+<li>lines 41-42: Handle any <em>MyError-type</em> exception. Then display the error message associated with the exception;</li>
+<li>lines 44–48: same as above for a second person instantiated with incorrect parameters;</li>
+<li>lines 50-54: same as above for a third person instantiated with default parameters.</li>
 </ul>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>personne=[Paul,Langevin,48]
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>l&#39;age doit etre un entier positif
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>personne=[x,x,0]
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>personne=[Paul,Langevin,48]
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>l&#39;age must be a positive integer
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>personne=[x,x,0]
 </code></pre></div></td></tr></table></div>
-<p><a id="refheading382842423505"></a></p>
-<h2 id="55-adding-a-method-that-acts-as-a-second-constructor">5.5. <span style="color: #4f81bd">Adding a method that acts as a second constructor</span></h2>
+<p><span id="refheading382842423505" name="refheading382842423505" class="odt-bookmark-anchor"></span></p>
+<h2 id="55-adding-a-method-that-acts-as-a-second-constructor">5.5. <span style="color: #4f81bd"><strong>Adding a method that acts as a second constructor</strong></span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_05)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span>
-<span class="normal"><a href="#__codelineno-8-12">12</a></span>
-<span class="normal"><a href="#__codelineno-8-13">13</a></span>
-<span class="normal"><a href="#__codelineno-8-14">14</a></span>
-<span class="normal"><a href="#__codelineno-8-15">15</a></span>
-<span class="normal"><a href="#__codelineno-8-16">16</a></span>
-<span class="normal"><a href="#__codelineno-8-17">17</a></span>
-<span class="normal"><a href="#__codelineno-8-18">18</a></span>
-<span class="normal"><a href="#__codelineno-8-19">19</a></span>
-<span class="normal"><a href="#__codelineno-8-20">20</a></span>
-<span class="normal"><a href="#__codelineno-8-21">21</a></span>
-<span class="normal"><a href="#__codelineno-8-22">22</a></span>
-<span class="normal"><a href="#__codelineno-8-23">23</a></span>
-<span class="normal"><a href="#__codelineno-8-24">24</a></span>
-<span class="normal"><a href="#__codelineno-8-25">25</a></span>
-<span class="normal"><a href="#__codelineno-8-26">26</a></span>
-<span class="normal"><a href="#__codelineno-8-27">27</a></span>
-<span class="normal"><a href="#__codelineno-8-28">28</a></span>
-<span class="normal"><a href="#__codelineno-8-29">29</a></span>
-<span class="normal"><a href="#__codelineno-8-30">30</a></span>
-<span class="normal"><a href="#__codelineno-8-31">31</a></span>
-<span class="normal"><a href="#__codelineno-8-32">32</a></span>
-<span class="normal"><a href="#__codelineno-8-33">33</a></span>
-<span class="normal"><a href="#__codelineno-8-34">34</a></span>
-<span class="normal"><a href="#__codelineno-8-35">35</a></span>
-<span class="normal"><a href="#__codelineno-8-36">36</a></span>
-<span class="normal"><a href="#__codelineno-8-37">37</a></span>
-<span class="normal"><a href="#__codelineno-8-38">38</a></span>
-<span class="normal"><a href="#__codelineno-8-39">39</a></span>
-<span class="normal"><a href="#__codelineno-8-40">40</a></span>
-<span class="normal"><a href="#__codelineno-8-41">41</a></span>
-<span class="normal"><a href="#__codelineno-8-42">42</a></span>
-<span class="normal"><a href="#__codelineno-8-43">43</a></span>
-<span class="normal"><a href="#__codelineno-8-44">44</a></span>
-<span class="normal"><a href="#__codelineno-8-45">45</a></span>
-<span class="normal"><a href="#__codelineno-8-46">46</a></span>
-<span class="normal"><a href="#__codelineno-8-47">47</a></span>
-<span class="normal"><a href="#__codelineno-8-48">48</a></span>
-<span class="normal"><a href="#__codelineno-8-49">49</a></span>
-<span class="normal"><a href="#__codelineno-8-50">50</a></span>
-<span class="normal"><a href="#__codelineno-8-51">51</a></span>
-<span class="normal"><a href="#__codelineno-8-52">52</a></span>
-<span class="normal"><a href="#__codelineno-8-53">53</a></span>
-<span class="normal"><a href="#__codelineno-8-54">54</a></span>
-<span class="normal"><a href="#__codelineno-8-55">55</a></span>
-<span class="normal"><a href="#__codelineno-8-56">56</a></span>
-<span class="normal"><a href="#__codelineno-8-57">57</a></span>
-<span class="normal"><a href="#__codelineno-8-58">58</a></span>
-<span class="normal"><a href="#__codelineno-8-59">59</a></span>
-<span class="normal"><a href="#__codelineno-8-60">60</a></span>
-<span class="normal"><a href="#__codelineno-8-61">61</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="c1"># -------------------</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="c1">#    a proprietary exception class</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8"></a>    <span class="k">pass</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11"></a>    <span class="c1">#    class attributes</span>
-<a id="__codelineno-8-12" name="__codelineno-8-12"></a>    <span class="c1">#    undeclared - can be created dynamically</span>
-<a id="__codelineno-8-13" name="__codelineno-8-13"></a>
-<a id="__codelineno-8-14" name="__codelineno-8-14"></a>    <span class="c1">#    manufacturer</span>
-<a id="__codelineno-8-15" name="__codelineno-8-15"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">nom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<a id="__codelineno-8-16" name="__codelineno-8-16"></a>         <span class="c1">#  first name must be non-empty</span>
-<a id="__codelineno-8-17" name="__codelineno-8-17"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\S+)\s*$&quot;</span><span class="p">,</span><span class="n">prenom</span><span class="p">)</span>
-<a id="__codelineno-8-18" name="__codelineno-8-18"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-8-19" name="__codelineno-8-19"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;Le prenom ne peut etre vide&quot;</span><span class="p">)</span>
-<a id="__codelineno-8-20" name="__codelineno-8-20"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-8-21" name="__codelineno-8-21"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-8-22" name="__codelineno-8-22"></a>        <span class="c1">#  name must be non-empty</span>
-<a id="__codelineno-8-23" name="__codelineno-8-23"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\S+)\s*$&quot;</span><span class="p">,</span><span class="n">nom</span><span class="p">)</span>
-<a id="__codelineno-8-24" name="__codelineno-8-24"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-8-25" name="__codelineno-8-25"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;Le nom ne peut etre vide&quot;</span><span class="p">)</span>
-<a id="__codelineno-8-26" name="__codelineno-8-26"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-8-27" name="__codelineno-8-27"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-8-28" name="__codelineno-8-28"></a>            <span class="c1">#  age must be valid</span>
-<a id="__codelineno-8-29" name="__codelineno-8-29"></a>        <span class="n">match</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*(\d+)\s*$&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">))</span>
-<a id="__codelineno-8-30" name="__codelineno-8-30"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-<a id="__codelineno-8-31" name="__codelineno-8-31"></a>            <span class="k">raise</span> <span class="n">MyError</span><span class="p">(</span><span class="s2">&quot;l&#39;age doit etre un entier positif&quot;</span><span class="p">)</span>
-<a id="__codelineno-8-32" name="__codelineno-8-32"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-8-33" name="__codelineno-8-33"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-8-34" name="__codelineno-8-34"></a>
-<a id="__codelineno-8-35" name="__codelineno-8-35"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initWithPersonne</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
-<a id="__codelineno-8-36" name="__codelineno-8-36"></a>        <span class="c1">#  initializes the current object with a person p</span>
-<a id="__codelineno-8-37" name="__codelineno-8-37"></a>        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-8-38" name="__codelineno-8-38"></a>
-<a id="__codelineno-8-39" name="__codelineno-8-39"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-8-40" name="__codelineno-8-40"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-8-41" name="__codelineno-8-41"></a>
-<a id="__codelineno-8-42" name="__codelineno-8-42"></a><span class="c1">#    ---------------------------------- main</span>
-<a id="__codelineno-8-43" name="__codelineno-8-43"></a><span class="c1">#    a Person object</span>
-<a id="__codelineno-8-44" name="__codelineno-8-44"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-8-45" name="__codelineno-8-45"></a>    <span class="n">p0</span><span class="o">=</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;  Paul  &quot;</span><span class="p">,</span><span class="s2">&quot;  Langevin  &quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">)</span>
-<a id="__codelineno-8-46" name="__codelineno-8-46"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
-<a id="__codelineno-8-47" name="__codelineno-8-47"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-8-48" name="__codelineno-8-48"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-<a id="__codelineno-8-49" name="__codelineno-8-49"></a><span class="c1">#    another object Nobody</span>
-<a id="__codelineno-8-50" name="__codelineno-8-50"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-8-51" name="__codelineno-8-51"></a>    <span class="n">p1</span><span class="o">=</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;  xx  &quot;</span><span class="p">,</span><span class="s2">&quot;  yy  &quot;</span><span class="p">,</span><span class="s2">&quot;  zz&quot;</span><span class="p">)</span>
-<a id="__codelineno-8-52" name="__codelineno-8-52"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<a id="__codelineno-8-53" name="__codelineno-8-53"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-8-54" name="__codelineno-8-54"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-<a id="__codelineno-8-55" name="__codelineno-8-55"></a><span class="c1">#    another person</span>
-<a id="__codelineno-8-56" name="__codelineno-8-56"></a><span class="n">p2</span><span class="o">=</span><span class="n">Personne</span><span class="p">()</span>
-<a id="__codelineno-8-57" name="__codelineno-8-57"></a><span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-8-58" name="__codelineno-8-58"></a>    <span class="n">p2</span><span class="o">.</span><span class="n">initWithPersonne</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
-<a id="__codelineno-8-59" name="__codelineno-8-59"></a>    <span class="nb">print</span> <span class="s2">&quot;personne=</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
-<a id="__codelineno-8-60" name="__codelineno-8-60"></a><span class="k">except</span> <span class="n">MyError</span><span class="p">,</span> <span class="n">erreur</span><span class="p">:</span>
-<a id="__codelineno-8-61" name="__codelineno-8-61"></a>    <span class="nb">print</span> <span class="n">erreur</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span> re</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># -------------------</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># a proprietary exception class</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> MyError<span style="color:#008080">(</span>Exception<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">pass</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # class attributes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # undeclared - can be created dynamically</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    # manufacturer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>age<span style="color:#008080">=</span>0<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">         # first name must be non-empty</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\S+)\s*$&quot;</span><span style="color:#008080">,</span>prenom<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;Le prenom ne peut etre vide&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        # name must be non-empty</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\S+)\s*$&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;Le nom ne peut etre vide&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>nom<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            # age must be valid</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        match<span style="color:#008080">=</span>re<span style="color:#0000ff">.</span>match<span style="color:#008080">(</span><span style="color:#a31515">r&quot;^\s*(\d+)\s*$&quot;</span><span style="color:#008080">,</span>str<span style="color:#008080">(</span>age<span style="color:#008080">))</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">if</span> <span style="color:#0000ff">not</span> match<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            <span style="color:#0000ff">raise</span> MyError<span style="color:#008080">(</span><span style="color:#a31515">&quot;l&#x27;age doit etre un entier positif&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">else</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">            self<span style="color:#0000ff">.</span>age<span style="color:#008080">=</span>match<span style="color:#0000ff">.</span>groups<span style="color:#008080">()[</span>0<span style="color:#008080">]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> initWithPersonne<span style="color:#008080">(</span>self<span style="color:#008080">,</span>p<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#008000"># initialise l&#x27;objet courant avec une personne p</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>__init__<span style="color:#008080">(</span>p<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>p<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>p<span style="color:#0000ff">.</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># a Person object</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p0<span style="color:#008080">=</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;  Paul  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  Langevin  &quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p0<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># another object Nobody</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p1<span style="color:#008080">=</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;  xx  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  yy  &quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;  zz&quot;</span><span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p1<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># another person</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">p2<span style="color:#008080">=</span>Personne<span style="color:#008080">()</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    p2<span style="color:#0000ff">.</span>initWithPersonne<span style="color:#008080">(</span>p0<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;personne={0}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>p2<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">except</span> MyError<span style="color:#008080">,</span> erreur<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">print</span> erreur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
-<li>The difference from the previous script is in lines 35–37. We have added the <em>initWithPerson</em> method<em>.</em> This method calls the <em>__init__</em> constructor. Unlike in typed languages, it is not possible to have methods with the same name that are distinguished by the nature of their parameters or their return values. Therefore, it is not possible to have multiple constructors that would create the object from different parameters, in this case an object of type <em>Person</em>.</li>
+<li>The difference from the previous script is in lines 35–37. We have added the method <em>initWithPersonne.</em> This method calls the constructor <em>__init__</em>. Unlike in typed languages, it is not possible to have methods with the same name that are distinguished by the nature of their parameters or their return values. Therefore, it is not possible to have multiple constructors that would create the object from different parameters, in this case an object of type <em>Person</em>.</li>
 </ul>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>personne=[Paul,Langevin,48]
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>l&#39;age doit etre un entier positif
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>personne=[Paul,Langevin,48]
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>personne=[Paul,Langevin,48]
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>l&#39;age must be a positive integer
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>personne=[Paul,Langevin,48]
 </code></pre></div></td></tr></table></div>
-<p><a id="refheading382862423505"></a></p>
+<p><span id="refheading382862423505" name="refheading382862423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="56-a-list-of-person-objects">5.6. <span style="color: #4f81bd">A list of Person objects</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_06)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1">#   -*- coding=utf-8 -*-</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a>    <span class="o">...</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="c1">#   ---------------------------------- main</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="c1">#   create a list of person objects</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="n">groupe</span><span class="o">=</span><span class="p">[</span><span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Paul&quot;</span><span class="p">,</span><span class="s2">&quot;Langevin&quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">),</span> <span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Sylvie&quot;</span><span class="p">,</span><span class="s2">&quot;Lefur&quot;</span><span class="p">,</span><span class="mi">70</span><span class="p">)]</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="c1">#  identity of these persons</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groupe</span><span class="p">)):</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11"></a>  <span class="nb">print</span> <span class="s2">&quot;groupe[</span><span class="si">{0}</span><span class="s2">]=</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">groupe</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-markdown">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008080">...</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># create a list of person objects</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">groupe<span style="color:#008080">=[</span>Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;Paul&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Langevin&quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">),</span> Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;Sylvie&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Lefur&quot;</span><span style="color:#008080">,</span>70<span style="color:#008080">)]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># identity of these persons</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>groupe<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;groupe[{0}]={1}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>i<span style="color:#008080">,</span>groupe<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
 <li>Lines 3-5: the <em>Person</em> class already described</li>
@@ -1368,130 +1203,92 @@
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>groupe[0]=[Paul,Langevin,48]
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>groupe[1]=[Sylvie,Lefur,70]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>groupe[0]=[Paul,Langevin,48]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>groupe[1]=[Sylvie,Lefur,70]
 </code></pre></div>
-<p><a id="refheading382882423505"></a></p>
+<p><span id="refheading382882423505" name="refheading382882423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="57-creating-a-class-derived-from-the-person-class">5.7. <span style="color: #4f81bd">Creating a class derived from the Person class</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_07)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-12-10">10</a></span>
-<span class="normal"><a href="#__codelineno-12-11">11</a></span>
-<span class="normal"><a href="#__codelineno-12-12">12</a></span>
-<span class="normal"><a href="#__codelineno-12-13">13</a></span>
-<span class="normal"><a href="#__codelineno-12-14">14</a></span>
-<span class="normal"><a href="#__codelineno-12-15">15</a></span>
-<span class="normal"><a href="#__codelineno-12-16">16</a></span>
-<span class="normal"><a href="#__codelineno-12-17">17</a></span>
-<span class="normal"><a href="#__codelineno-12-18">18</a></span>
-<span class="normal"><a href="#__codelineno-12-19">19</a></span>
-<span class="normal"><a href="#__codelineno-12-20">20</a></span>
-<span class="normal"><a href="#__codelineno-12-21">21</a></span>
-<span class="normal"><a href="#__codelineno-12-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4"></a>
-<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6"></a>    <span class="o">...</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7"></a>
-<a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Enseignant</span><span class="p">(</span><span class="n">Personne</span><span class="p">):</span>
-<a id="__codelineno-12-9" name="__codelineno-12-9"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">nom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">discipline</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">):</span>
-<a id="__codelineno-12-10" name="__codelineno-12-10"></a>        <span class="n">Personne</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="p">,</span><span class="n">nom</span><span class="p">,</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-12-11" name="__codelineno-12-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">discipline</span><span class="o">=</span><span class="n">discipline</span>
-<a id="__codelineno-12-12" name="__codelineno-12-12"></a>
-<a id="__codelineno-12-13" name="__codelineno-12-13"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-12-14" name="__codelineno-12-14"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">,</span><span class="si">{3}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">discipline</span><span class="p">)</span>
-<a id="__codelineno-12-15" name="__codelineno-12-15"></a>
-<a id="__codelineno-12-16" name="__codelineno-12-16"></a>
-<a id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="c1">#    ---------------------------------- main</span>
-<a id="__codelineno-12-18" name="__codelineno-12-18"></a><span class="c1">#  create a list of Personne objects and derivatives</span>
-<a id="__codelineno-12-19" name="__codelineno-12-19"></a><span class="n">groupe</span><span class="o">=</span><span class="p">[</span><span class="n">Enseignant</span><span class="p">(</span><span class="s2">&quot;Paul&quot;</span><span class="p">,</span><span class="s2">&quot;Langevin&quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="s2">&quot;anglais&quot;</span><span class="p">),</span> <span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Sylvie&quot;</span><span class="p">,</span><span class="s2">&quot;Lefur&quot;</span><span class="p">,</span><span class="mi">70</span><span class="p">)]</span>
-<a id="__codelineno-12-20" name="__codelineno-12-20"></a><span class="c1">#  identity of these persons</span>
-<a id="__codelineno-12-21" name="__codelineno-12-21"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groupe</span><span class="p">)):</span>
-<a id="__codelineno-12-22" name="__codelineno-12-22"></a>  <span class="nb">print</span> <span class="s2">&quot;groupe[</span><span class="si">{0}</span><span class="s2">]=</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">groupe</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span> re</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008080">...</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Enseignant<span style="color:#008080">(</span>Personne<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>age<span style="color:#008080">=</span>0<span style="color:#008080">,</span>discipline<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        Personne<span style="color:#0000ff">.</span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">,</span>nom<span style="color:#008080">,</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>discipline<span style="color:#008080">=</span>discipline</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2},{3}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>discipline<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># create a list of Personne objects and derivatives</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">groupe<span style="color:#008080">=[</span>Enseignant<span style="color:#008080">(</span><span style="color:#a31515">&quot;Paul&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Langevin&quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">,</span><span style="color:#a31515">&quot;anglais&quot;</span><span style="color:#008080">),</span> Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;Sylvie&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Lefur&quot;</span><span style="color:#008080">,</span>70<span style="color:#008080">)]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># identity of these persons</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>groupe<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;groupe[{0}]={1}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>i<span style="color:#008080">,</span>groupe<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
 <li>lines 5-6: the <em>Person</em> class is already defined;</li>
 <li>line 8: declares the <em>Teacher</em> class as a subclass of the <em>Person</em> class<em>;</em></li>
 <li>line 10: the constructor of the derived <em>Teacher</em> class must call the constructor of the parent <em>Person</em> class;</li>
-<li>lines 21-22: to display group[i], the interpreter uses the method <em>group[i].__str__()</em>. The <em>__str__()</em> method used is that of the actual class of <em>group[i],</em> as shown in the results below.</li>
+<li>lines 21-22: to display group[i], the interpreter uses the method <em>group[i].__str__()</em>. The <em>__str__()</em> method used is that of the actual class of <em>groupe[i],</em> as  shown in the results below.</li>
 </ul>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Results</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>groupe[0]=[Paul,Langevin,48,anglais]
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>groupe[1]=[Sylvie,Lefur,70]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>groupe[0]=[Paul,Langevin,48,anglais]
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>groupe[1]=[Sylvie,Lefur,70]
 </code></pre></div>
-<p><a id="refheading382902423505"></a></p>
+<p><span id="refheading382902423505" name="refheading382902423505" class="odt-bookmark-anchor"></span></p>
 <h2 id="58-creating-a-second-class-derived-from-the-person-class">5.8. <span style="color: #4f81bd">Creating a second class derived from the Person class</span></h2>
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="top" />
 <div style="margin:0 0 0.75em 0; background-color:#e6e6e6; padding:0.35em 0.6em">Program (classes_08)</div>
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-14-10">10</a></span>
-<span class="normal"><a href="#__codelineno-14-11">11</a></span>
-<span class="normal"><a href="#__codelineno-14-12">12</a></span>
-<span class="normal"><a href="#__codelineno-14-13">13</a></span>
-<span class="normal"><a href="#__codelineno-14-14">14</a></span>
-<span class="normal"><a href="#__codelineno-14-15">15</a></span>
-<span class="normal"><a href="#__codelineno-14-16">16</a></span>
-<span class="normal"><a href="#__codelineno-14-17">17</a></span>
-<span class="normal"><a href="#__codelineno-14-18">18</a></span>
-<span class="normal"><a href="#__codelineno-14-19">19</a></span>
-<span class="normal"><a href="#__codelineno-14-20">20</a></span>
-<span class="normal"><a href="#__codelineno-14-21">21</a></span>
-<span class="normal"><a href="#__codelineno-14-22">22</a></span>
-<span class="normal"><a href="#__codelineno-14-23">23</a></span>
-<span class="normal"><a href="#__codelineno-14-24">24</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1">#    -*- coding=utf-8 -*-</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4"></a>
-<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">Personne</span><span class="p">:</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6"></a>    <span class="o">...</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7"></a>
-<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Enseignant</span><span class="p">(</span><span class="n">Personne</span><span class="p">):</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9"></a>    <span class="o">...</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10"></a>
-<a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">Etudiant</span><span class="p">(</span><span class="n">Personne</span><span class="p">):</span>
-<a id="__codelineno-14-12" name="__codelineno-14-12"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">nom</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">formation</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">):</span>
-<a id="__codelineno-14-13" name="__codelineno-14-13"></a>        <span class="n">Personne</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prenom</span><span class="p">,</span><span class="n">nom</span><span class="p">,</span><span class="n">age</span><span class="p">)</span>
-<a id="__codelineno-14-14" name="__codelineno-14-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">formation</span><span class="o">=</span><span class="n">formation</span>
-<a id="__codelineno-14-15" name="__codelineno-14-15"></a>
-<a id="__codelineno-14-16" name="__codelineno-14-16"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-14-17" name="__codelineno-14-17"></a>        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">{0}</span><span class="s2">,</span><span class="si">{1}</span><span class="s2">,</span><span class="si">{2}</span><span class="s2">,</span><span class="si">{3}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">formation</span><span class="p">)</span>
-<a id="__codelineno-14-18" name="__codelineno-14-18"></a>
-<a id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="c1">#    ---------------------------------- main</span>
-<a id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="c1">#  create a list of Personne objects and derivatives</span>
-<a id="__codelineno-14-21" name="__codelineno-14-21"></a><span class="n">groupe</span><span class="o">=</span><span class="p">[</span><span class="n">Enseignant</span><span class="p">(</span><span class="s2">&quot;Paul&quot;</span><span class="p">,</span><span class="s2">&quot;Langevin&quot;</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="s2">&quot;anglais&quot;</span><span class="p">),</span> <span class="n">Personne</span><span class="p">(</span><span class="s2">&quot;Sylvie&quot;</span><span class="p">,</span><span class="s2">&quot;Lefur&quot;</span><span class="p">,</span><span class="mi">70</span><span class="p">),</span> <span class="n">Etudiant</span><span class="p">(</span><span class="s2">&quot;Steve&quot;</span><span class="p">,</span><span class="s2">&quot;Boer&quot;</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="s2">&quot;iup2 qualite&quot;</span><span class="p">)]</span>
-<a id="__codelineno-14-22" name="__codelineno-14-22"></a><span class="c1">#  identity of these persons</span>
-<a id="__codelineno-14-23" name="__codelineno-14-23"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groupe</span><span class="p">)):</span>
-<a id="__codelineno-14-24" name="__codelineno-14-24"></a>  <span class="nb">print</span> <span class="s2">&quot;groupe[</span><span class="si">{0}</span><span class="s2">]=</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">groupe</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-python">
+<span class="odt-code-line"><span class="odt-code-line-content"># -*- coding=utf-8 -*-</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span> re</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Personne<span style="color:#008080">:</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#008080">...</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Enseignant<span style="color:#008080">(</span>Personne<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    ...</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">class</span> Etudiant<span style="color:#008080">(</span>Personne<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>nom<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">,</span>age<span style="color:#008080">=</span>0<span style="color:#008080">,</span>formation<span style="color:#008080">=</span><span style="color:#a31515">&quot;x&quot;</span><span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        Personne<span style="color:#0000ff">.</span>__init__<span style="color:#008080">(</span>self<span style="color:#008080">,</span>prenom<span style="color:#008080">,</span>nom<span style="color:#008080">,</span>age<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        self<span style="color:#0000ff">.</span>formation<span style="color:#008080">=</span>formation</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#0000ff">def</span> __str__<span style="color:#008080">(</span>self<span style="color:#008080">):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        <span style="color:#0000ff">return</span> <span style="color:#a31515">&quot;[{0},{1},{2},{3}]&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>self<span style="color:#0000ff">.</span>prenom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>nom<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>age<span style="color:#008080">,</span>self<span style="color:#0000ff">.</span>formation<span style="color:#008080">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># ---------------------------------- main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># create a list of Personne objects and derivatives</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">groupe<span style="color:#008080">=[</span>Enseignant<span style="color:#008080">(</span><span style="color:#a31515">&quot;Paul&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Langevin&quot;</span><span style="color:#008080">,</span>48<span style="color:#008080">,</span><span style="color:#a31515">&quot;anglais&quot;</span><span style="color:#008080">),</span> Personne<span style="color:#008080">(</span><span style="color:#a31515">&quot;Sylvie&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Lefur&quot;</span><span style="color:#008080">,</span>70<span style="color:#008080">),</span> Etudiant<span style="color:#008080">(</span><span style="color:#a31515">&quot;Steve&quot;</span><span style="color:#008080">,</span><span style="color:#a31515">&quot;Boer&quot;</span><span style="color:#008080">,</span>22<span style="color:#008080">,</span><span style="color:#a31515">&quot;iup2 qualite&quot;</span><span style="color:#008080">)]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"># identity of these persons</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">for</span> i <span style="color:#0000ff">in</span> range<span style="color:#008080">(</span>len<span style="color:#008080">(</span>groupe<span style="color:#008080">)):</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#0000ff">print</span> <span style="color:#a31515">&quot;groupe[{0}]={1}&quot;</span><span style="color:#0000ff">.</span>format<span style="color:#008080">(</span>i<span style="color:#008080">,</span>groupe<span style="color:#008080">[</span>i<span style="color:#008080">])</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> </span></span>
+</code></pre></div>
+
 <p>Notes:</p>
 <ul>
 <li>This script is similar to the previous one.</li>
@@ -1501,9 +1298,9 @@
 
 <hr style="border:0; border-top:0.99pt solid #000000; margin:0.75em 0;" data-odt-border="bottom" />
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>groupe[0]=[Paul,Langevin,48,anglais]
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>groupe[1]=[Sylvie,Lefur,70]
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>groupe[2]=[Steve,Boer,22,iup2 qualite]
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>groupe[0]=[Paul,Langevin,48,anglais]
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>groupe[1]=[Sylvie,Lefur,70]
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>groupe[2]=[Steve,Boer,22,iup2 qualite]
 </code></pre></div>
 
 

@@ -57,6 +57,8 @@
     
       <link rel="stylesheet" href="stylesheets/focus.css">
     
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -394,14 +396,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation.html" class="md-nav__link">
+      <a href="application-exercise---impots.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Application Exercise – [Tax Calculation]
+    4. Application Exercise – [IMPOTS]
   
 
     
@@ -502,14 +504,14 @@
   
   
     <li class="md-nav__item">
-      <a href="application-exercise---tax-calculation-with-a-layered-architecture-.html" class="md-nav__link">
+      <a href="application-exercise---impots-with-layered-architecture.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    8. Application Exercise – [Tax Calculation] with a layered architecture 
+    8. Application Exercise - [IMPOTS] with layered architecture
   
 
     
@@ -529,14 +531,14 @@
   
   
     <li class="md-nav__item">
-      <a href="using-the-mysql-dbms.html" class="md-nav__link">
+      <a href="using-the-sgbd-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    9. Using the MySQL DBMS
+    9. Using the SGBD MySQL
   
 
     
@@ -556,14 +558,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-mysql.html" class="md-nav__link">
+      <a href="exercise-impots-with-mysql.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    10. Exercise [Tax Calculation] with MySQL
+    10. Exercise [IMPOTS] with MySQL
   
 
     
@@ -637,14 +639,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-a-web-service.html" class="md-nav__link">
+      <a href="exercise-impots-with-a-service-web.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    13. Exercise [Tax Calculation] with a Web Service
+    13. Exercise [IMPOTS] with a service WEB
   
 
     
@@ -664,14 +666,14 @@
   
   
     <li class="md-nav__item">
-      <a href="processing-xml-documents.html" class="md-nav__link">
+      <a href="processing-of-document-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    14. Processing XML Documents
+    14. Processing of document XML
   
 
     
@@ -691,14 +693,14 @@
   
   
     <li class="md-nav__item">
-      <a href="exercise-tax-calculation-with-xml.html" class="md-nav__link">
+      <a href="exercise-impots-with-xml.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    15. Exercise [Tax Calculation] with XML
+    15. Exercise [IMPOTS] with XML
   
 
     
@@ -728,29 +730,29 @@
 
 
 
-<p><a id="refheading382342423505"></a></p>
+<p><span id="refheading382342423505" name="refheading382342423505" class="odt-bookmark-anchor"></span></p>
 <h1 id="1-foreword">1. <span style="color: #365f91">Foreword</span></h1>
-<p>The PDF of the document is available |<a href="https://1drv.ms/b/c/f53a919f43d27eb5/IQB1kwqLIDeVS70MGc6miK0_AXo8ecuStu2GdMUjb7onfDw?e=2HEYlY">HERE</a>|.</p>
-<p>The examples in the document are available |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQCfyPYVjiHHSpdeXzhpPebeASw6a9Vi9-d_QGqPAiVQAWE?e=ZJQsuC">HERE</a>|.</p>
+<p>The PDF version of the document is available |<a href="https://1drv.ms/b/c/f53a919f43d27eb5/IQB1kwqLIDeVS70MGc6miK0_AXo8ecuStu2GdMUjb7onfDw?e=6dPqBI">HERE</a>|.</p>
+<p>The examples in the document are available |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQCfyPYVjiHHSpdeXzhpPebeASw6a9Vi9-d_QGqPAiVQAWE?e=AEaGYt">HERE</a>|.</p>
 <p>This document provides a list of Python scripts in various fields:</p>
 <ul>
 <li>the fundamentals of the language,</li>
-<li>MySQL database management,</li>
-<li>TCP/IP network programming,</li>
+<li>database management MySQL,</li>
+<li>network programming Tcp/ Ip,</li>
 <li>web programming,</li>
 <li>three-tier architectures and interface-based programming.</li>
 </ul>
-<p>This is not a Python course but a collection of examples intended for developers who have already used a scripting language such as Perl, PHP, or VBScript, or for developers accustomed to typed languages such as Java or C# who are interested in discovering an object-oriented scripting language. This document is not suitable for readers with little or no programming experience.</p>
-<p>Nor is this document a collection of &quot;best practices.&quot; Experienced developers may find that some of the code could be written more elegantly. The sole purpose of this document is to provide examples for someone wishing to quickly get started with the Python language. They can then deepen their learning with other resources.</p>
-<p>Those who find this document &quot;too fast-paced&quot; or not explicit enough may prefer Gérard Swinnen’s in-depth tutorial   [<em>http://python.developpez.com/cours/TutoSwinnen/</em>] or, more generally, the Python tutorials on <em>developpez.com</em>    [<em>http://python.developpez.com/cours</em>]. The definitive information can be found at the URL [<em>http://docs.python.org/</em>].</p>
-<p>The scripts are commented, and their console output is reproduced. Additional explanations are sometimes provided. This document requires active reading: to understand a script, you must read its code, comments, and console output.</p>
-<p>The examples in this document are available |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQCfyPYVjiHHSpdeXzhpPebeASw6a9Vi9-d_QGqPAiVQAWE?e=ZJQsuC">HERE</a>|. They are provided as a Visual Studio 2010 solution, but the scripts can be used outside of this environment.</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/10000000000000BF0000012F10769FFC.png" width="134" height="212" style="display:inline-block; margin:4px;width:3.54cm;height:5.616cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BF0000012F10769FFC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">&nbsp;</td></tr></table>
+<p>This is not a Python course but a collection of examples intended for developers who have already used a scripting language such as Perl, PHP, Vbscript, or developers accustomed to typed languages such as Java or C# who would be interested in discovering an object-oriented scripting language. This document is not suitable for readers with little or no programming experience.</p>
+<p>Nor is this document a collection of &quot;best practices.&quot; Experienced developers may find that some of the code could be written more effectively. The sole purpose of this document is to provide examples for someone wishing to quickly get started with the Python language. They can then deepen their learning with other resources.</p>
+<p>Those for whom this document &quot;goes too fast&quot; or is not explicit enough may prefer Gérard Swinnen’s in-depth tutorial   [http://python.developpez.com/cours/TutoSwinnen/] or, more generally, the Python tutorials by <em>developpez.com</em>    [http://python.developpez.com/cours]. The ultimate information can be found at URL [http://docs.python.org/].</p>
+<p>The scripts are commented, and their console output is reproduced. Additional explanations are sometimes provided. The document requires active reading: to understand a script, you must read its code, comments, and console output.</p>
+<p>The examples in this document are available at [<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQCfyPYVjiHHSpdeXzhpPebeASw6a9Vi9-d_QGqPAiVQAWE?e=AEaGYt">http://tahe.ftp-developpez.com/fichiers-archive/python_exemples.zip</a>]. They are provided as a Visual Studio 2010 solution, but the scripts can be used outside of this environment.</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/10000000000000BF0000012F10769FFC.png" width="134" height="212" style="display:inline-block; margin:4px;width:3.54cm;height:5.616cm;" class="odt-zoomable" data-zoom-src="images/10000000000000BF0000012F10769FFC.png" /></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;">&nbsp;</td></tr></table>
 
 <p><strong>For further reading</strong>:</p>
 <ul>
-<li>[<a href="https://stahe.github.io/en-python-flask-sept-2020/"><u><span style="color: #0563c1">Introduction to the Python language and the Flask web framework through examples (2020)</span></u></a>];</li>
-<li>[<a href="https://stahe.github.io/en-python-ia-sept-2025/"><u><span style="color: #0563c1">Generating a Python script with AI tools (2025)</span></u></a>];</li>
+<li>[<a href="https://stahe.github.io/en-python-flask-sept-2020/"><u><span style="color: #000080">Introduction to the Python Language and the Flask Web Framework Through Examples (2020)</span></u></a>];</li>
+<li>[<a href="https://stahe.github.io/en-python-ia-sept-2025/"><u><span style="color: #000080">Generate a Python script using AI tools (2025)</span></u></a>];</li>
 </ul>
 
 
